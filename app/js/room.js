@@ -1,5 +1,4 @@
-const socket = io("https://video-rbaq.onrender.com");
-// const socket = io();
+const socket = io();
 const myvideo = document.querySelector("#vd1");
 const roomid = params.get("room");
 let username;
