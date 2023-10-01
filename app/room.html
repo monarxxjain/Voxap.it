@@ -225,6 +225,8 @@
         } else {
             visible = true;
         }
+
+        
         function toggleSidebar() {
             let rightCont = document.getElementsByClassName("right-cont")[0];
             let leftCont = document.getElementsByClassName("left-cont")[0];
@@ -238,16 +240,16 @@
             visible = !visible;
         }
 		
-	// Funzione per mostrare la notifica
-function showNotification() {
-    var notification = document.getElementById("notification");
-    notification.classList.add("show");
+        // Funzione per mostrare la notifica
+        function showNotification() {
+            var notification = document.getElementById("notification");
+            notification.classList.add("show");
 
-    setTimeout(function() {
-        notification.classList.remove("show");
-    }, 3000); // Rimuovi la classe 'show' dopo 3 secondi
-}	
-		
+            setTimeout(function() {
+                notification.classList.remove("show");
+            }, 3000); // Rimuovi la classe 'show' dopo 3 secondi
+        }	
+    
         // Serve per il tasto condividi.
         function shareLink() {
             if (navigator.share) {
@@ -263,35 +265,33 @@ function showNotification() {
                 console.warn('L\'API di condivisione non è supportata su questo dispositivo.');
             }
         }
-		
+    
 
-		// Fa comparire il tooltip quando posso con il mouse sopra la classe roomcode
-document.addEventListener('DOMContentLoaded', function() {
-  var roomcodeElement = document.querySelector('.roomcode');
-  
-  roomcodeElement.addEventListener('mouseover', function() {
-    var codeTooltip = document.createElement('div');
-    codeTooltip.className = 'code-tooltip'; 
-    codeTooltip.textContent = `${window.location.origin}/room.html?room=${roomid}`;   // Link dinamico alla stanza
-    document.body.appendChild(codeTooltip);
+        // Fa comparire il tooltip quando posso con il mouse sopra la classe roomcode
+        document.addEventListener('DOMContentLoaded', function() {
+        var roomcodeElement = document.querySelector('.roomcode');
+        
+        roomcodeElement.addEventListener('mouseover', function() {
+            var codeTooltip = document.createElement('div');
+            codeTooltip.className = 'code-tooltip'; 
+            codeTooltip.textContent = `${window.location.origin}/room.html?room=${roomid}`;   // Link dinamico alla stanza
+            document.body.appendChild(codeTooltip);
 
-    var rect = roomcodeElement.getBoundingClientRect();
-    codeTooltip.style.top = (window.scrollY + rect.top - codeTooltip.offsetHeight - 5) + 'px';
+            var rect = roomcodeElement.getBoundingClientRect();
+            codeTooltip.style.top = (window.scrollY + rect.top - codeTooltip.offsetHeight - 5) + 'px';
 
-    // Sposta il tooltip a sinistra
-    var tooltipLeft = rect.left - 10; // Modifica l'allineamento
-    codeTooltip.style.left = (window.scrollX + tooltipLeft) + 'px';
-  });
+            // Sposta il tooltip a sinistra
+            var tooltipLeft = rect.left - 10; // Modifica l'allineamento
+            codeTooltip.style.left = (window.scrollX + tooltipLeft) + 'px';
+        });
 
-  roomcodeElement.addEventListener('mouseout', function() {
-    var codeTooltip = document.querySelector('.code-tooltip');
-    if (codeTooltip) {
-      codeTooltip.remove();
-    }
-  });
-});		
-		
-		
+        roomcodeElement.addEventListener('mouseout', function() {
+            var codeTooltip = document.querySelector('.code-tooltip');
+            if (codeTooltip) {
+            codeTooltip.remove();
+            }
+        });
+        });		
 		
 		
 		
@@ -303,79 +303,6 @@ document.addEventListener('DOMContentLoaded', function() {
  
 		
 			
-	
-		//web speech api + google translator
-    // const languageSelect = document.getElementById('languageSelect');
-    // const outputDiv = document.getElementById('output');
-    // const parolaCorrenteDiv = document.getElementById('parolaCorrente');
-    // let fraseCorrente = '';
-    // let isTranslating = false;
-
-    // if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-    //   let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-    //   let selectedLanguage = languageSelect.value;
-    //   languageSelect.addEventListener("click", function() {
-    //     selectedLanguage = languageSelect.value
-    //     switch (selectedLanguage) {
-    //         case 'en':
-    //             recognition.lang = 'en-US'
-    //             break;
-    //         case 'fr':
-    //             recognition.lang = 'fr-FR'
-    //             break;
-    //         case 'de':
-    //             recognition.lang = 'de-DE'
-    //             break;
-    //         case 'es': 
-    //             recognition.lang = 'es-ES'
-    //             break;
-    //         case 'hi':
-    //             recognition.lang = 'en-US'
-    //             break;
-    //         case 'it':
-    //             recognition.lang = 'it-IT'
-    //             break;
-    //         default:
-    //             recognition.lang = 'it-IT'
-    //             break;
-    //     }
-    //   })
-    //   recognition.interimResults = true;
-
-    //   recognition.onresult = async (event) => {
-    //     let transcript = '';
-    //     for (let i = 0; i < event.results.length; i++) {
-    //       transcript += event.results[i][0].transcript + ' ';
-    //     }
-    //     parolaCorrenteDiv.textContent = transcript;
-
-
-    //     const translationResponse = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(transcript)}`);
-    //     const translationData = await translationResponse.json();
-    //     const translation = translationData[0][0][0];
-
-    //     fraseCorrente = translation;
-    //     isTranslating = true;
-
-    //     outputDiv.textContent = `${fraseCorrente}`;
-    //   };
-
-    //   recognition.onend = () => {
-    //     if (isTranslating) {
-    //       recognition.start();
-    //     } else {
-    //       outputDiv.innerHTML = '...';
-    //     }
-    //   };
-
-    //   recognition.onerror = (event) => {
-    //     console.error('Errore di riconoscimento vocale: ', event.error);
-    //   };
-
-    //   recognition.start();
-    // } else {
-    //   console.error('Il browser non supporta la Web Speech API.');
-    // }
   </script>
 
 
