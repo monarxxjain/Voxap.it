@@ -959,11 +959,11 @@ for (let i = 0; i < audios.length; i++) {
 
 socket.on("answer_message",async (msg)=>{
     if(remoteSid!==""){
-        // let selectedLanguage = languageSelect.value;
         let selectedLanguage = languageSelect.value;
         const translationResponse = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(msg)}`);
         const translationData = await translationResponse.json();
         const translation = translationData[0][0][0]
+        document.querySelector(`#${remoteSid} .custom-style-1`).textContent=msg
         document.querySelector(`#${remoteSid} .custom-style-2`).textContent=translation
     }
 })
