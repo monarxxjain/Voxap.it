@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>BhoomiCAM - Video Call & Chat</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://kit.fontawesome.com/6510466b6c.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+  <navbar>
+    <div class="logo">BhoomiCAM</div>
+  </navbar>
+
+  <div class="main">
+    <div class="create-join">
+      <div class="text">
+        <div class="headline">Start global conversations with a simple click!</div>
+        <div class="sottotitolo">No sign ups required.</div>
+      </div>
+
+      <button id="createroom" class="createroom-butt box-shadow-effect unselectable">Create Room</button>
+
+      <div class="accor">
+        <div class="contentbox" id="cont">
+          <div class="label">Do you already have a room code?</div>
+          <div class="content">
+            <div>
+              <input type="text" name="room" spellcheck="false" placeholder="Enter Room Code" id="roomcode" class="roomcode"><br>
+              <div class="joinroom unselectable" id="joinroom">Join Room</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-cont">
+      <div class="white-area">
+        <div class="video-cont">
+          <video class="video-self" autoplay muted playsinline></video>
+          <div id="parolaCorrente" class="custom-style-1"></div>
+          <div id="output" class="custom-style-2"></div>
+          <video id="localVideo" autoplay muted></video>
+        </div>
+      </div>
+
+      <div class="video-cont settings">
+        <div class="icone">
+          <label for="languageSelect" class="sel-lingua">Select the translation language:</label>
+          <select id="languageSelect" class="sel-lingua-drop">
+            <option value="en">English</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="es">Spanish</option>
+            <option value="hi">Hindi</option>
+            <option value="it">Italian</option>
+          </select>
+        </div>
+        <div class="icone">
+          <div class="device" id="mic"><i class="fas fa-microphone"></i></div>
+          <div class="device" id="webcam"><i class="fas fa-video"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const languageSelect = document.getElementById('languageSelect');
+    const outputDiv = document.getElementById('output');
+    const parolaCorrenteDiv = document.getElementById('parolaCorrente');
+    let fraseCorrente = '';
+    let isTranslating = false;
+
+    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+      let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = 'it-IT';
+      recognition.interimResults = true;
+
+      recognition.onresult = async (event) => {
+        let transcript = '';
+        for (let i = 0; i < event.results.length; i++) {
+          transcript += event.results[i][0].transcript + ' ';
+        }
+        parolaCorrenteDiv.textContent = transcript;
+
+        const selectedLanguage = languageSelect.value;
+        console.log(selectedLanguage)
+        const translationResponse = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(transcript)}`);
+        const translationData = await translationResponse.json();
+        const translation = translationData[0][0][0];
+
+        fraseCorrente = translation;
+        isTranslating = true;
+
+        outputDiv.textContent = `${fraseCorrente}`;
+      };
+
+      recognition.onend = () => {
+        if (isTranslating) {
+          recognition.start();
+        } else {
+          outputDiv.innerHTML = '...';
+        }
+      };
+
+      recognition.onerror = (event) => {
+        console.error('Errore di riconoscimento vocale: ', event.error);
+      };
+
+      recognition.start();
+    } else {
+      console.error('Il browser non supporta la Web Speech API.');
+    }
+  </script>
+
+  <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+  <script src="js/landing.js"></script>
+  <script src="js/java-home.js"></script>
+</body>
+
+</html>

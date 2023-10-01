@@ -1,0 +1,191 @@
+men {
+    font-family: "Montserrat", sans-serif;
+    text-align: center;
+    position: inherit;
+}
+
+#menu-m {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    list-style: none;
+    font-size: 200%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-m-button {
+    opacity: 0;
+    z-index: 4;
+}
+
+.menu-m-button {
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #424242;
+    background-size: 100%;
+    overflow: hidden;
+    text-decoration: none;
+    padding-top: 16px;
+}
+/* Stile quando l'icona viene cliccata (senza scomparsa dell'icona) */
+.menu-m-button::before {
+    background-color: #7b7b7b; /* Grigio chiaro */
+    color: #424242;
+}
+
+.menu-m-button:hover {
+    background-color: #00ff00; /* Imposta il colore desiderato per il menu aperto (es. verde) */
+    color: #424242;
+}
+
+.menu-m-button:active {
+    background-color: #0c19f6; /* Grigio chiaro */
+    color: #424242;
+}
+
+.menu-m-button.menu-open::before {
+    color: #00ff00; /* Imposta il colore desiderato per l'icona (es. verde) */
+}
+
+#menu-m:not(:target) > a:first-of-type,
+#menu-m:target > a:last-of-type {
+    opacity: 1;
+    z-index: 5;
+}
+
+#menu-m:not(:target) > .icon-plus:before,
+#menu-m:target > .icon-minus:before {
+    opacity: 1;
+    background-color: #393e46;
+    color: #ffffff;
+}
+
+.menu-m-item {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    line-height: 5px;
+    border-radius: 50%;
+    transition: transform 500ms;
+    z-index: 3;
+    transition: 0.5s;
+    padding: 13px 1px;
+}
+
+.menu-m-item:hover {
+    opacity: 0.5;
+    box-shadow: 0 5px 10px black;
+}
+
+.menu-m-item .cutcall {
+    background-color: #cc4e4e;
+    color: #ffffff;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    border-radius: 100px;
+    transition: background-color 0.3s;
+    left: 42%;
+    line-height: 5px;
+    top: 50%;
+    margin: -50px 0 0 -50px;
+    border-radius: 50%;
+    transform: translate(0px, 0px);
+    transition: transform 500ms;
+    transition: 0.5s;
+    padding: 15px 0px 0px 0px;
+}
+.menu-m-item .cutcall:hover {
+    cursor: pointer;
+    background-color: #393e46;
+    color: #ffffff;
+}
+
+.menu-m-item .board-icon {
+    background-color: #d8d8d8;
+    color: #393e46;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    border-radius: 100px;
+    transition: background-color 0.3s;
+    left: 42%;
+    line-height: 5px;
+    top: 50%;
+    margin: -50px 0 0 -50px;
+    border-radius: 50%;
+    transform: translate(0px, 0px);
+    transition: transform 500ms;
+    transition: 0.5s;
+    padding: 15px 0px 0px 0px;
+}
+.menu-m-item .board-icon:hover {
+    cursor: pointer;
+    background-color: #393e46;
+    color: #ffffff;
+}
+
+.menu-m-item .audio {
+    background-color: #4ecca3;
+    color: #ffffff;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    border-radius: 100px;
+    transition: background-color 0.3s;
+    transform: translate(0px, 0px);
+    transition: transform 500ms;
+    transition: 0.5s;
+    padding: 14px 0px 0px 0px;
+    margin: -13px 0px 0px -1px;
+}
+.menu-m-item .audio:hover {
+    cursor: pointer;
+    background-color: #393e46;
+    color: #ffffff;
+}
+
+.menu-m-item .novideo {
+    background-color: #4ecca3;
+    color: #ffffff;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    border-radius: 100px;
+    transition: background-color 0.3s;
+    transform: translate(0px, 0px);
+    transition: transform 500ms;
+    transition: 0.5s;
+    padding: 14px 0px 0px 0px;
+    margin: -13px 0px 0px -1px;
+}
+.menu-m-item .novideo:hover {
+    cursor: pointer;
+    background-color: #393e46;
+    color: #ffffff;
+}
+
+#menu-m:target > .menu-m-item:nth-child(6) {
+    transform: rotate(60deg) translateY(-140px) rotate(300deg);
+    transition-delay: 0s;
+}
+
+#menu-m:target > .menu-m-item:nth-child(5) {
+    transform: rotate(20deg) translateY(-145px) rotate(-20deg);
+    transition-delay: 0.1s;
+}
+
+#menu-m:target > .menu-m-item:nth-child(3) {
+    transform: rotate(-20deg) translateY(-145px) rotate(20deg);
+    transition-delay: 0.2s;
+}
+
+#menu-m:target > .menu-m-item:nth-child(4) {
+    transform: rotate(-60deg) translateY(-140px) rotate(60deg);
+    transition-delay: 0.3s;
+}

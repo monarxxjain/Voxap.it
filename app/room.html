@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>BhoomiCAM</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style-nav-mobile.css">
+    <script src="https://kit.fontawesome.com/6510466b6c.js" crossorigin="anonymous"></script>
+
+    <script>
+        const params = new URLSearchParams(location.search);
+        if (!params.get("room")) location.href = "/";
+    </script>
+</head>
+
+<body>
+    <div class="overlay" id="overlay">
+        <div class="box">
+            <div class="head-name">Enter your Name</div>
+            <input type="text" class="name-field" placeholder="Type here.." id="name-field"></input><br>
+            <button class="continue-name">Continue</button>
+
+        </div>
+    </div>
+	<div class = "preview-background isHidden">
+		<div id = "preview-close">
+			X
+		</div>
+		<div class = "preview">
+			
+		</div>
+	</div>
+    <div class="container-room">
+        <div class="left-cont">
+            <div id="menu-chat">
+                <button class="openbtn" onclick="toggleSidebar()">
+				<i class="fas fa-comment-alt mr-1"></i>
+				</button>
+				
+                <div class="video-cont-single" id="vcont">
+                    <div class = "video-cont-container">
+                        <div class="video-box">
+                            <video class="video-frame" id="vd1" autoplay playsinline>
+                            </video>
+                            <div class="nametag" id="myname">yourname</div>
+                            <div class="mute-icon" id="mymuteicon"><i class="fas fa-microphone-slash"></i></div>
+                            <div class="video-off" id="myvideooff">Video Off</div>
+                        </div>
+                        <div class = "video-captions" style="padding-top: 15px;"> 
+                            <div class = "custom-style-1 userAudioTranscript" id = "parolaCorrente"></div>
+                            <div class = "custom-style-2 userAudioTranscript" id = "output"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="whiteboard-cont"><canvas id="whiteboard" height="1000" width="1000"></canvas>
+                    <div class="colors-cont">
+                        <div class="black" onclick="setColor('black')"></div>
+                        <div class="red" onclick="setColor('#e74c3c')"></div>
+                        <div class="yellow" onclick="setColor('#f1c40f')"></div>
+                        <div class="green" onclick="setColor('#badc58')"></div>
+                        <div class="blue" onclick="setColor('#3498db')"></div>
+                        <div class="orange" onclick="setColor('#e67e22')"></div>
+                        <div class="purple" onclick="setColor('#9b59b6')"></div>
+                        <div class="pink" onclick="setColor('#fd79a8')"></div>
+                        <div class="brown" onclick="setColor('#834c32')"></div>
+                        <div class="grey" onclick="setColor('gray')"></div>
+                        <div class="eraser" onclick="setEraser()"><i class="fas fa-eraser"></i></div>
+                        <div class="clearboard" onclick="clearBoard()"><i class="fas fa-trash-alt"></i></div>
+                    </div>
+                </div>
+
+                <div class="footer">
+                    <!--  NASCONDI SU DESKTOP  -->
+                    <div class="nascondi-cell">
+                        <div class="utils">
+                            <div class="audio audioButton">
+                                <i class="fas fa-microphone"></i>
+                            </div>
+                            <div class="novideo videoButton">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div class="screenshare tooltip" onClick = "screenShareToggle()">
+                                <i class="fas fa-desktop"></i>
+                                <span class="tooltiptext">Share Screen</span>
+                            </div>
+                            <div class="board-icon tooltip" onClick = "whiteboardButton()">
+                                <i class="fas fa-chalkboard"></i>
+                                <span class="tooltiptext">Whiteboard</span>
+                            </div>
+                            <div class="cutcall tooltip" onClick = "leaveRoom()">
+                                <i class="fas fa-phone-slash"></i>
+                                <span class="tooltiptext">Leave Call</span>
+                            </div>
+                        </div>
+                        <div class="copycode-cont">
+                            <div class="roomcode" onclick="CopyClassText()"></div>
+                            <button class="copycode-button" onclick="CopyClassText()">
+								<i class="fas fa-user-plus"></i>
+								<span>Invite</span>
+							</button>
+                        </div>
+
+                        <div class="lingua-cont">
+
+                            <label for="languageSelect" class="sel-lingua" style="text-align: right; font-size: 14px;">Select the<br>translation language:</label>
+                            <select id="languageSelect" class="sel-lingua-drop">
+                                <option value="en">English</option>
+                                <option value="fr">French</option>
+                                <option value="de">German</option>
+                                <option value="es">Spanish</option>
+                                <option value="hi">Hindi</option>
+                                <option value="it">Italian</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="nasc-desk">
+                        <div class="share-code" onclick="shareLink()">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <nav>
+                            <div class="container" id="menu-m-container">
+                                <ul id="menu-m">
+                                    <!-- open-menu-m id for click event -->
+                                    <a class="menu-m-button icon-plus" id="open-menu-m" href="#menu-m"
+                                        title="Show navigation">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80.6 80.6"
+                                            style="enable-background:new 0 0 80.6 80.6" xml:space="preserve"
+                                            width="35px" height="35px" fill="#393e46">
+                                            <path
+                                                d="M21.9 64.4c-1.7-1.4-3.3-2.5-4.7-3.9C8.9 52.4 5 42.7 6.5 31.1c1.9-14.5 11.8-25.5 26-28.9 14.3-3.4 29.6 3.2 36.8 15.5 3.1 5.3 5 11 5 17.1 0 12-4.7 21.8-14.7 28.8-1.1.8-1.1.9 0 1.7 2.5 1.8 5 3.5 7.5 5.4 2.1 1.5 2.7 3.4 2.1 5.5-.6 1.9-1.9 2.9-3.8 3.2-.3 0-.6.1-1 .1H15.9c-2.5 0-4-1.1-4.8-3.1-.7-2 0-3.9 1.8-5.4.5-.4 1-.8 1.6-1.1 2.1-1.5 4.1-2.9 6.2-4.4.5-.5.8-.8 1.2-1.1zm18.4-53.5c-13-.2-24.5 10.3-24.6 24.5-.1 13.5 11.1 24.7 24.6 24.7 13.6 0 24.6-11 24.6-24.6 0-13.8-10.9-24.6-24.6-24.6z" />
+                                            <path
+                                                d="M40.3 16.1c10.3-.5 19.9 8.9 19.5 20-.4 10.3-8.9 18.8-19.5 18.8-10.8 0-19.3-8.6-19.3-19.7-.2-10.7 9.2-19.6 19.3-19.1zm-9.9 21.8c1.4 0 2.4-.8 2.7-2.3.1-.7.1-1.4.3-2.1 1-3.5 3.4-5 6.9-5.3 1.8-.2 2.7-1.3 2.5-2.9-.1-1.4-1.3-2.3-2.9-2.2-6.6.3-11.6 4.8-12 12.1-.1 1.6 1 2.7 2.5 2.7z" />
+                                        </svg>
+                                    </a>
+                                    <a class="menu-m-button icon-minus" href="#0" title="Hide navigation">
+                                        <i class="fas fa-cog"></i>
+                                    </a>
+                                    <li class="menu-m-item audioButton">
+                                        <a href="#open-menu-m">
+                                            <div class="audio">
+                                                <i class="fas fa-microphone"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-m-item videoButton">
+                                        <a href="#open-menu-m">
+                                            <div class="novideo">
+                                                <i class="fas fa-video"></i>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-m-item" onClick = "whiteboardButton()">
+                                        <a href="#open-menu-m">
+                                            <div class="board-icon tooltip">
+                                                <i class="fas fa-chalkboard"></i>
+                                                <span class="tooltiptext">Whiteboard</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-m-item" onClick = "leaveRoom()">
+                                        <a href="#open-menu-m">
+                                            <div class="cutcall tooltip">
+                                                <i class="fas fa-phone-slash"></i>
+                                                <span class="tooltiptext">Leave Call</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+
+                        <div class="sel-lang" id = "selLangMobile">
+                            <i class="fas fa-flag"></i>
+                        </div>
+                        <select id = "languageSelectMobile" class = "sel-lingua-drop hide-select-mobile" onchange="changeLanguage()">
+                            <option value="en">English</option>
+                            <option value="fr">French</option>
+                            <option value="de">German</option>
+                            <option value="es">Spanish</option>
+                            <option value="hi">Hindi</option>
+                            <option value="it">Italian</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-cont">
+            <div id="mySidebar" class="sidebar">
+                <div class="t-chat">
+                    <div class="chats">Chats</div>
+                    <a href="javascript:void(0)" class="closebtn" onClick = "toggleSidebar()">×</a>
+                </div>
+                <div class="chat-cont"></div>
+                <div class="chat-input-cont">
+                    <div class = "ci-attach">
+						<input type = "file" hidden id = "targetFile"/>
+						<label for = "targetFile">
+							<i class = "fas fa-paperclip"></i>
+						</label>
+					</div>
+                    <div class="ci-cont"><input type="text" class="chat-input" placeholder="Type chat here.."></div>
+                    <div class="ci-send"><button class="chat-send">Send</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
+    <script src="./socket.io/socket.io.js"></script>
+    <script src="js/room.js"></script>
+
+    <script>
+		// apre e chiude la sidebar latera. Se il monitor è meno di 768px la tiene chiusa
+        let visible;
+        if (window.innerWidth <= 768) {
+            visible = false;
+            let rightCont = document.getElementsByClassName("right-cont")[0];
+            rightCont.classList.add("right-none");
+        } else {
+            visible = true;
+        }
+        function toggleSidebar() {
+            let rightCont = document.getElementsByClassName("right-cont")[0];
+            let leftCont = document.getElementsByClassName("left-cont")[0];
+            if (visible) {
+                rightCont.classList.add("right-none");
+                leftCont.classList.add("left-full-width");
+            } else {
+                rightCont.classList.remove("right-none");
+                leftCont.classList.remove("left-full-width");
+            }
+            visible = !visible;
+        }
+		
+	// Funzione per mostrare la notifica
+function showNotification() {
+    var notification = document.getElementById("notification");
+    notification.classList.add("show");
+
+    setTimeout(function() {
+        notification.classList.remove("show");
+    }, 3000); // Rimuovi la classe 'show' dopo 3 secondi
+}	
+		
+        // Serve per il tasto condividi.
+        function shareLink() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Link to the virtual room',
+                    url: window.location.href // Ottiene l'URL della pagina corrente
+                }).then(() => {
+                    console.log('Link condiviso con successo!');
+                }).catch((error) => {
+                    console.error('Errore nella condivisione del link:', error);
+                });
+            } else {
+                console.warn('L\'API di condivisione non è supportata su questo dispositivo.');
+            }
+        }
+		
+
+		// Fa comparire il tooltip quando posso con il mouse sopra la classe roomcode
+document.addEventListener('DOMContentLoaded', function() {
+  var roomcodeElement = document.querySelector('.roomcode');
+  
+  roomcodeElement.addEventListener('mouseover', function() {
+    var codeTooltip = document.createElement('div');
+    codeTooltip.className = 'code-tooltip'; 
+    codeTooltip.textContent = `${window.location.origin}/room.html?room=${roomid}`;   // Link dinamico alla stanza
+    document.body.appendChild(codeTooltip);
+
+    var rect = roomcodeElement.getBoundingClientRect();
+    codeTooltip.style.top = (window.scrollY + rect.top - codeTooltip.offsetHeight - 5) + 'px';
+
+    // Sposta il tooltip a sinistra
+    var tooltipLeft = rect.left - 10; // Modifica l'allineamento
+    codeTooltip.style.left = (window.scrollX + tooltipLeft) + 'px';
+  });
+
+  roomcodeElement.addEventListener('mouseout', function() {
+    var codeTooltip = document.querySelector('.code-tooltip');
+    if (codeTooltip) {
+      codeTooltip.remove();
+    }
+  });
+});		
+		
+		
+		
+		
+		
+        // When page loads, it will trigger the circle menu
+        window.onload = function () {
+            var menuButton = document.getElementById("open-menu");
+            menuButton.click();
+        };
+ 
+		
+			
+	
+		//web speech api + google translator
+    // const languageSelect = document.getElementById('languageSelect');
+    // const outputDiv = document.getElementById('output');
+    // const parolaCorrenteDiv = document.getElementById('parolaCorrente');
+    // let fraseCorrente = '';
+    // let isTranslating = false;
+
+    // if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+    //   let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    //   let selectedLanguage = languageSelect.value;
+    //   languageSelect.addEventListener("click", function() {
+    //     selectedLanguage = languageSelect.value
+    //     switch (selectedLanguage) {
+    //         case 'en':
+    //             recognition.lang = 'en-US'
+    //             break;
+    //         case 'fr':
+    //             recognition.lang = 'fr-FR'
+    //             break;
+    //         case 'de':
+    //             recognition.lang = 'de-DE'
+    //             break;
+    //         case 'es': 
+    //             recognition.lang = 'es-ES'
+    //             break;
+    //         case 'hi':
+    //             recognition.lang = 'en-US'
+    //             break;
+    //         case 'it':
+    //             recognition.lang = 'it-IT'
+    //             break;
+    //         default:
+    //             recognition.lang = 'it-IT'
+    //             break;
+    //     }
+    //   })
+    //   recognition.interimResults = true;
+
+    //   recognition.onresult = async (event) => {
+    //     let transcript = '';
+    //     for (let i = 0; i < event.results.length; i++) {
+    //       transcript += event.results[i][0].transcript + ' ';
+    //     }
+    //     parolaCorrenteDiv.textContent = transcript;
+
+
+    //     const translationResponse = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(transcript)}`);
+    //     const translationData = await translationResponse.json();
+    //     const translation = translationData[0][0][0];
+
+    //     fraseCorrente = translation;
+    //     isTranslating = true;
+
+    //     outputDiv.textContent = `${fraseCorrente}`;
+    //   };
+
+    //   recognition.onend = () => {
+    //     if (isTranslating) {
+    //       recognition.start();
+    //     } else {
+    //       outputDiv.innerHTML = '...';
+    //     }
+    //   };
+
+    //   recognition.onerror = (event) => {
+    //     console.error('Errore di riconoscimento vocale: ', event.error);
+    //   };
+
+    //   recognition.start();
+    // } else {
+    //   console.error('Il browser non supporta la Web Speech API.');
+    // }
+  </script>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Traduttore Vocale</title>
+</head>
+<body>
+    <h1>Traduttore Vocale</h1>
+    <p>ATTENZIONE: Funziona tutto! Prova a parlare</p>
+    <select id="linguaDestinazione">
+        <option value="it">Italiano</option>
+        <option value="en" selected>Inglese</option>
+        <option value="es">Spagnolo</option>
+        <option value="fr">Francese</option>
+        <option value="de">Tedesco</option>
+        <option value="hi">Hindi</option>
+        <!-- Aggiungi altre lingue desiderate -->
+    </select>
+
+    <div id="parolaCorrente"></div> <!-- Sposta questo elemento sopra -->
+    <div id="output"></div>
+
+    <script>
+        const linguaDestinazioneSelect = document.getElementById('linguaDestinazione');
+        const outputDiv = document.getElementById('output');
+        const parolaCorrenteDiv = document.getElementById('parolaCorrente');
+        let fraseCorrente = '';
+        let isTranslating = false;
+
+        if ('webkitSpeechRecognition' in window) {
+            let recognition = new webkitSpeechRecognition();
+            recognition.lang = 'it-IT';
+            recognition.interimResults = true;
+
+            recognition.onresult = async (event) => {
+                let transcript = '';
+                for (let i = 0; i < event.results.length; i++) {
+                    transcript += event.results[i][0].transcript + ' ';
+                }
+                parolaCorrenteDiv.textContent = transcript;
+
+                const selectedLanguage = linguaDestinazioneSelect.value;
+
+                const translationResponse = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(transcript)}`);
+                const translationData = await translationResponse.json();
+                const translation = translationData[0][0][0];
+
+                fraseCorrente = translation;
+                isTranslating = true;
+
+                outputDiv.textContent = `${fraseCorrente}`;
+            };
+
+            recognition.onend = () => {
+                if (isTranslating) {
+                    recognition.start();
+                } else {
+                    outputDiv.innerHTML = '...'; // Visualizza qualcosa al posto dei puntini quando il riconoscimento si ferma
+                }
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Errore di riconoscimento vocale: ', event.error);
+            };
+
+            recognition.start();
+        } else {
+            console.error('Il browser non supporta la Web Speech API.');
+        }
+    </script>
+</body>
+</html>
