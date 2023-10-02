@@ -31,11 +31,9 @@ console.log(siteWidth)
 let languageSelect;
 if(siteWidth>954){
     languageSelect = document.getElementById('languageSelect');
-    console.log("======================================================")
 }
 else{
     languageSelect = document.getElementById('languageSelectMobile');
-    console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 }
 const outputDiv = document.getElementById('output');
 const parolaCorrenteDiv = document.getElementById('parolaCorrente');
