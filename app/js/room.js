@@ -26,7 +26,17 @@ const closePreview = () => {
 	previewBackground.classList.add("isHidden");
 }
 
-const languageSelect = document.getElementById('languageSelect');
+let siteWidth = window.innerWidth;
+console.log(siteWidth)
+let languageSelect;
+if(siteWidth>954){
+    languageSelect = document.getElementById('languageSelect');
+    console.log("======================================================")
+}
+else{
+    languageSelect = document.getElementById('languageSelectMobile');
+    console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+}
 const outputDiv = document.getElementById('output');
 const parolaCorrenteDiv = document.getElementById('parolaCorrente');
 let fraseCorrente = '';
@@ -62,6 +72,7 @@ if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
     }
   })
   recognition.interimResults = true;
+//   recognition.start();
 
   recognition.onresult = async (event) => {
     let transcript = '';
@@ -83,11 +94,11 @@ if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
   };
 
   recognition.onend = () => {
-    if (isTranslating) {
+    // if (isTranslating) {
       recognition.start();
-    } else {
-      outputDiv.innerHTML = '...';
-    }
+    // } else {
+    //   outputDiv.innerHTML = '...';
+    // }
   };
 
   recognition.onerror = (event) => {

@@ -88,7 +88,6 @@
         parolaCorrenteDiv.textContent = transcript;
 
         const selectedLanguage = languageSelect.value;
-        console.log(selectedLanguage)
         const translationResponse = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(transcript)}`);
         const translationData = await translationResponse.json();
         const translation = translationData[0][0][0];
