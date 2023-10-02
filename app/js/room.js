@@ -40,8 +40,8 @@ const parolaCorrenteDiv = document.getElementById('parolaCorrente');
 let fraseCorrente = '';
 let isTranslating = false;
 
-if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-  let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+  let recognition = new (window.webkitSpeechRecognition || window.SpeechRecognition)();
   let selectedLanguage = languageSelect.value;
   languageSelect.addEventListener("click", function() {
     selectedLanguage = languageSelect.value
