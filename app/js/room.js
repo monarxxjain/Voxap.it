@@ -45,29 +45,30 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
   let selectedLanguage = languageSelect.value;
   languageSelect.addEventListener("click", function() {
     selectedLanguage = languageSelect.value
-    switch (selectedLanguage) {
-        case 'en':
-            recognition.lang = 'en-US'
-            break;
-        case 'fr':
-            recognition.lang = 'fr-FR'
-            break;
-        case 'de':
-            recognition.lang = 'de-DE'
-            break;
-        case 'es': 
-            recognition.lang = 'es-ES'
-            break;
-        case 'hi':
-            recognition.lang = 'en-US'
-            break;
-        case 'it':
-            recognition.lang = 'it-IT'
-            break;
-        default:
-            recognition.lang = 'it-IT'
-            break;
-    }
+    // switch (selectedLanguage) {
+    //     case 'en':
+    //         recognition.lang = 'en-US'
+    //         break;
+    //     case 'fr':
+    //         recognition.lang = 'fr-FR'
+    //         break;
+    //     case 'de':
+    //         recognition.lang = 'de-DE'
+    //         break;
+    //     case 'es': 
+    //         recognition.lang = 'es-ES'
+    //         break;
+    //     case 'hi':
+    //         recognition.lang = 'en-US'
+    //         break;
+    //     case 'it':
+    //         recognition.lang = 'it-IT'
+    //         break;
+    //     default:
+    //         recognition.lang = 'it-IT'
+    //         break;
+    // }
+    // recognition.lang = 'it-IT'
   })
   recognition.interimResults = true;
 //   recognition.start();
