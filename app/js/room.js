@@ -1011,7 +1011,8 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
     selectedLanguage = languageSelect.value
     if(siteWidth<955){
         mobileSelect.click();
-        mobileSelect.click();
+        selectedLanguage = languageSelect.value
+        // mobileSelect.click();
     }
     // switch (selectedLanguage) {
     //     case 'en':
