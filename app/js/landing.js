@@ -212,83 +212,56 @@ mic.addEventListener("click", () => {
     micAllowed = !micAllowed;
 });
 
-setTimeout(() => {
-    const languageSelect = document.getElementById("languageSelect");
-    const outputDiv = document.getElementById("output");
-    const parolaCorrenteDiv = document.getElementById("parolaCorrente");
-    let fraseCorrente = "";
-    let isTranslating = false;
+// setTimeout(() => {
+    // const languageSelect = document.getElementById("languageSelect");
+    // const outputDiv = document.getElementById("output");
+    // const parolaCorrenteDiv = document.getElementById("parolaCorrente");
+    // let fraseCorrente = "";
+    // let isTranslating = false;
 
-    if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
-        let recognition = new (window.webkitSpeechRecognition ||
-            window.SpeechRecognition)();
-        let selectedLanguage = languageSelect.value;
-        languageSelect.addEventListener("click", function () {
-            selectedLanguage = languageSelect.value;
-            // switch (selectedLanguage) {
-            //     case 'en':
-            //         recognition.lang = 'en-US'
-            //         break;
-            //     case 'fr':
-            //         recognition.lang = 'fr-FR'
-            //         break;
-            //     case 'de':
-            //         recognition.lang = 'de-DE'
-            //         break;
-            //     case 'es':
-            //         recognition.lang = 'es-ES'
-            //         break;
-            //     case 'hi':
-            //         recognition.lang = 'en-US'
-            //         break;
-            //     case 'it':
-            //         recognition.lang = 'it-IT'
-            //         break;
-            //     default:
-            //         recognition.lang = 'it-IT'
-            //         break;
-            // }
-            // recognition.lang = 'it-IT'
-        });
-        recognition.lang = "it-IT";
-        recognition.interimResults = true;
+    // if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
+    //     let recognition = new (window.webkitSpeechRecognition || window.SpeechRecognition)();
+    //     recognition.lang = "it-IT";
+    //     recognition.interimResults = true;
 
-        recognition.onresult = async (event) => {
-            let transcript = "";
-            for (let i = 0; i < event.results.length; i++) {
-                transcript += event.results[i][0].transcript + " ";
-            }
-            parolaCorrenteDiv.textContent = transcript;
+    //     let selectedLanguage = languageSelect.value;
+    //     languageSelect.addEventListener("click", function () {
+    //         selectedLanguage = languageSelect.value;
 
-            const translationResponse = await fetch(
-                `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(
-                    transcript
-                )}`
-            );
-            const translationData = await translationResponse.json();
-            const translation = translationData[0][0][0];
+    //     });
 
-            fraseCorrente = translation;
-            isTranslating = true;
+    //     recognition.onresult = async (event) => {
+    //         let transcript = "";
+    //         for (let i = 0; i < event.results.length; i++) {
+    //             transcript += event.results[i][0].transcript + " ";
+    //         }
+    //         parolaCorrenteDiv.textContent = transcript;
 
-            outputDiv.textContent = `${fraseCorrente}`;
-            socket.emit("send_message", fraseCorrente);
-        };
+    //         const translationResponse = await fetch(
+    //             `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(
+    //                 transcript
+    //             )}`
+    //         );
+    //         const translationData = await translationResponse.json();
+    //         const translation = translationData[0][0][0];
 
-        recognition.onend = () => {
-            // if (isTranslating) {
-            recognition.start();
-            // } else {
-            //   outputDiv.innerHTML = '...';
-            // }
-        };
+    //         fraseCorrente = translation;
+    //         isTranslating = true;
 
-        recognition.onerror = (event) => {
-            console.error("Errore di riconoscimento vocale: ", event.error);
-        };
+    //         outputDiv.textContent = `${fraseCorrente}`;
+    //         socket.emit("send_message", fraseCorrente);
+    //     };
 
-        recognition.start();
-    } else {
-        console.error("Il browser non supporta la Web Speech API.");
-    }
-}, 1000);
+    //     recognition.onend = () => {
+    //         recognition.start();
+    //     };
+
+    //     recognition.onerror = (event) => {
+    //         console.error("Errore di riconoscimento vocale: ", event.error);
+    //     };
+
+    //     recognition.start();
+    // } else {
+    //     console.error("Il browser non supporta la Web Speech API.");
+    // }
+// }, 1000);
