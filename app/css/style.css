@@ -1310,9 +1310,12 @@ navbar .logo {
         height: 10vh;
     }
     .sidebar{
-        height: 185vmin;
+        height: 165vmin;
     }
     .right-cont{
         height: 105vmin;
+    }
+    body{
+        overflow-y: hidden;
     }
 }
