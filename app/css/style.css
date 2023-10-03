@@ -1263,18 +1263,7 @@ navbar .logo {
         text-align: center;
         position: relative;
         transition-duration: 500ms;
-    }
-
-    #vcont{
-        height: 70vh;
-    }
-    .nasc-desk{
-        height: 10vh;
-    }
-    .sidebar{
-        height: 185vmin;
-    }
-	
+    }    
 	
     .container-room .right-cont {
         position: absolute;
@@ -1311,4 +1300,19 @@ navbar .logo {
 }
 	
 	
+}
+
+@media (max-width: 450px){
+    #vcont{
+        height: 70vh;
+    }
+    .nasc-desk{
+        height: 10vh;
+    }
+    .sidebar{
+        height: 185vmin;
+    }
+    .right-cont{
+        height: 185vmin;
+    }
 }
