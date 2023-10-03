@@ -1266,10 +1266,13 @@ navbar .logo {
     }
 
     #vcont{
-        height: 80vh;
+        height: 70vh;
     }
     .nasc-desk{
         height: 10vh;
+    }
+    .sidebar{
+        height: 88vmin;
     }
 	
 	
