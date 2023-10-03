@@ -1006,45 +1006,19 @@ let isTranslating = false;
 
 if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
   let recognition = new (window.webkitSpeechRecognition || window.SpeechRecognition)();
-  let selectedLanguage = languageSelect.value;
-  languageSelect.addEventListener("click", function() {
-    selectedLanguage = languageSelect.value
-    // switch (selectedLanguage) {
-    //     case 'en':
-    //         recognition.lang = 'en-US'
-    //         break;
-    //     case 'fr':
-    //         recognition.lang = 'fr-FR'
-    //         break;
-    //     case 'de':
-    //         recognition.lang = 'de-DE'
-    //         break;
-    //     case 'es': 
-    //         recognition.lang = 'es-ES'
-    //         break;
-    //     case 'hi':
-    //         recognition.lang = 'en-US'
-    //         break;
-    //     case 'it':
-    //         recognition.lang = 'it-IT'
-    //         break;
-    //     default:
-    //         recognition.lang = 'it-IT'
-    //         break;
-    // }
-    // recognition.lang = 'it-IT'
-  })
+  
   recognition.lang = 'it-IT';
   recognition.interimResults = true;
-
+  
   recognition.onresult = async (event) => {
-    let transcript = '';
-    for (let i = 0; i < event.results.length; i++) {
-      transcript += event.results[i][0].transcript + ' ';
-    }
-    parolaCorrenteDiv.textContent = transcript;
-
-
+      let transcript = '';
+      for (let i = 0; i < event.results.length; i++) {
+          transcript += event.results[i][0].transcript + ' ';
+        }
+        parolaCorrenteDiv.textContent = transcript;
+        
+        
+    let selectedLanguage = languageSelect.value;
     const translationResponse = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(transcript)}`);
     const translationData = await translationResponse.json();
     const translation = translationData[0][0][0];
