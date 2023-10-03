@@ -259,4 +259,4 @@ setTimeout(() => {
     } else {
         console.error("Il browser non supporta la Web Speech API.");
     }
-}, 1000);
+}, 3000);
