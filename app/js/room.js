@@ -882,16 +882,7 @@ for (let i = 0; i < audios.length; i++) {
     });
 }
 
-socket.on("answer_message",async (msg)=>{
-    if(remoteSid!==""){
-        let selectedLanguage = languageSelect.value;
-        const translationResponse = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(msg)}`);
-        const translationData = await translationResponse.json();
-        const translation = translationData[0][0][0]
-        document.querySelector(`#${remoteSid} .custom-style-1`).textContent=msg
-        document.querySelector(`#${remoteSid} .custom-style-2`).textContent=translation
-    }
-})
+
 
 socket.on("action", (msg, sid) => {
     switch (msg) {
@@ -988,11 +979,11 @@ fileInput.addEventListener("change", (e) => {
 	}
 });
 
+let languageSelect;
 setTimeout(() => {
     
 let siteWidth = window.innerWidth;
 console.log(siteWidth)
-let languageSelect;
 if(siteWidth>954){
     languageSelect = document.getElementById('languageSelect');
 }
@@ -1079,3 +1070,15 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
   console.error('Il browser non supporta la Web Speech API.');
 }
 }, 7000);
+
+
+socket.on("answer_message",async (msg)=>{
+    if(remoteSid!==""){
+        let selectedLanguage = languageSelect.value;
+        const translationResponse = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(msg)}`);
+        const translationData = await translationResponse.json();
+        const translation = translationData[0][0][0]
+        document.querySelector(`#${remoteSid} .custom-style-1`).textContent=msg
+        document.querySelector(`#${remoteSid} .custom-style-2`).textContent=translation
+    }
+})
