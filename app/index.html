@@ -159,11 +159,10 @@
         recognition.lang = "it-IT";
         recognition.interimResults = true;
 
-        let selectedLanguage = languageSelect.value;
-        languageSelect.addEventListener("click", function () {
-            selectedLanguage = languageSelect.value;
+        // languageSelect.addEventListener("click", function () {
+        //     selectedLanguage = languageSelect.value;
 
-        });
+        // });
 
         recognition.onresult = async (event) => {
             let transcript = "";
@@ -171,6 +170,7 @@
                 transcript += event.results[i][0].transcript + " ";
             }
             parolaCorrenteDiv.textContent = transcript;
+            let selectedLanguage = languageSelect.value;
 
             const translationResponse = await fetch(
                 `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(
