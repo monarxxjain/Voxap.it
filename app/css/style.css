@@ -1315,7 +1315,7 @@ navbar .logo {
     .right-cont{
         height: 105vmin;
     }
-    body{
+    .container-room{
         overflow-y: hidden;
     }
 }
