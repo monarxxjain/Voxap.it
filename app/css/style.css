@@ -1254,23 +1254,23 @@ navbar .logo {
 @media (max-width: 954px) {
 	
 	.left-cont {
-    flex: 1 1 auto; /* Con flex: 1, .left-cont prende tutto lo spazio disponibile rimanente */
-    background-color: #393e46;
-    height: 100vh;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0px;
-    text-align: center;
-    position: relative;
-    transition-duration: 500ms;
-}
+        flex: 1 1 auto; /* Con flex: 1, .left-cont prende tutto lo spazio disponibile rimanente */
+        background-color: #393e46;
+        height: 100vh;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0px;
+        text-align: center;
+        position: relative;
+        transition-duration: 500ms;
+    }
 
-#vcont{
-    height: 80vh;
-}
-.nasc-desk{
-    height: 17vh;
-}
+    #vcont{
+        height: 80vh;
+    }
+    .nasc-desk{
+        height: 17vh;
+    }
 	
 	
     .container-room .right-cont {
