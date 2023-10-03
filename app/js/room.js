@@ -1036,7 +1036,6 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
   })
   recognition.lang = 'it-IT';
   recognition.interimResults = true;
-//   recognition.start();
 
   recognition.onresult = async (event) => {
     let transcript = '';
@@ -1058,11 +1057,7 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
   };
 
   recognition.onend = () => {
-    // if (isTranslating) {
       recognition.start();
-    // } else {
-    //   outputDiv.innerHTML = '...';
-    // }
   };
 
   recognition.onerror = (event) => {

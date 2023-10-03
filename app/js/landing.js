@@ -212,60 +212,6 @@ mic.addEventListener("click", () => {
     micAllowed = !micAllowed;
 });
 
-// setTimeout(() => {
-    // const languageSelect = document.getElementById("languageSelect");
-    // const outputDiv = document.getElementById("output");
-    // const parolaCorrenteDiv = document.getElementById("parolaCorrente");
-    // let fraseCorrente = "";
-    // let isTranslating = false;
-
-    // if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
-    //     let recognition = new (window.webkitSpeechRecognition || window.SpeechRecognition)();
-    //     recognition.lang = "it-IT";
-    //     recognition.interimResults = true;
-
-    //     let selectedLanguage = languageSelect.value;
-    //     languageSelect.addEventListener("click", function () {
-    //         selectedLanguage = languageSelect.value;
-
-    //     });
-
-    //     recognition.onresult = async (event) => {
-    //         let transcript = "";
-    //         for (let i = 0; i < event.results.length; i++) {
-    //             transcript += event.results[i][0].transcript + " ";
-    //         }
-    //         parolaCorrenteDiv.textContent = transcript;
-
-    //         const translationResponse = await fetch(
-    //             `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(
-    //                 transcript
-    //             )}`
-    //         );
-    //         const translationData = await translationResponse.json();
-    //         const translation = translationData[0][0][0];
-
-    //         fraseCorrente = translation;
-    //         isTranslating = true;
-
-    //         outputDiv.textContent = `${fraseCorrente}`;
-    //         socket.emit("send_message", fraseCorrente);
-    //     };
-
-    //     recognition.onend = () => {
-    //         recognition.start();
-    //     };
-
-    //     recognition.onerror = (event) => {
-    //         console.error("Errore di riconoscimento vocale: ", event.error);
-    //     };
-
-    //     recognition.start();
-    // } else {
-    //     console.error("Il browser non supporta la Web Speech API.");
-    // }
-// }, 1000);
-
 setTimeout(() => {
     const languageSelect = document.getElementById("languageSelect");
     const outputDiv = document.getElementById("output");
