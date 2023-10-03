@@ -356,7 +356,7 @@ navbar .logo {
 .custom-style-1 {
     color: rgba(255, 255, 255, 0.47);
     font-size: 15px;
-    padding-top: 10px;
+    /* padding-top: 10px; */
     padding-left: 20px; /* Aggiungi un padding di 10px all'interno del box */
     padding-right: 20px;
 }
@@ -1207,7 +1207,7 @@ navbar .logo {
     justify-content: space-between;
     align-items: center;
     position: relative;
-    margin-top: 1.5rem;
+    /* margin-top: 1.5rem; */
 }
 
 @media screen and (max-width: 1320px) {
@@ -1263,6 +1263,13 @@ navbar .logo {
     text-align: center;
     position: relative;
     transition-duration: 500ms;
+}
+
+#vcont{
+    height: 80vh;
+}
+.nasc-desk{
+    height: 17vh;
 }
 	
 	

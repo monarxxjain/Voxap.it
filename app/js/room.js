@@ -70,6 +70,7 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
     // }
     // recognition.lang = 'it-IT'
   })
+  recognition.lang = 'it-IT';
   recognition.interimResults = true;
 //   recognition.start();
 
