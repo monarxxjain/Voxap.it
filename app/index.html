@@ -147,7 +147,7 @@
       console.error('Il browser non supporta la Web Speech API.');
     }
   </script> -->
-  <script>
+  <!-- <script>
     const languageSelect = document.getElementById("languageSelect");
     const outputDiv = document.getElementById("output");
     const parolaCorrenteDiv = document.getElementById("parolaCorrente");
@@ -158,11 +158,6 @@
         let recognition = new (window.webkitSpeechRecognition || window.SpeechRecognition)();
         recognition.lang = "it-IT";
         recognition.interimResults = true;
-
-        // languageSelect.addEventListener("click", function () {
-        //     selectedLanguage = languageSelect.value;
-
-        // });
 
         recognition.onresult = async (event) => {
             let transcript = "";
@@ -199,7 +194,7 @@
     } else {
         console.error("Il browser non supporta la Web Speech API.");
     }
-  </script>
+  </script> -->
 
   
 </body>
