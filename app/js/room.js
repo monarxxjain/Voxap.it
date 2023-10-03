@@ -1009,9 +1009,6 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
   let selectedLanguage = languageSelect.value;
   languageSelect.addEventListener("click", function() {
     selectedLanguage = languageSelect.value
-    if(siteWidth<955){
-        languageSelect.click()
-    }
     // switch (selectedLanguage) {
     //     case 'en':
     //         recognition.lang = 'en-US'
