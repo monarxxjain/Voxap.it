@@ -8,6 +8,9 @@
     padding: 0;
     font-family: "Montserrat", sans-serif;
 }
+html {
+    overflow: hidden;
+  }
 
 body,
 html {
@@ -16,6 +19,9 @@ html {
     background-color: darkblue;
 }
 
+body {
+    position: fixed;
+}
 .preview-background {
 	width: 100vw;
 	height: 100vh;
