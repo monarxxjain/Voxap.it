@@ -1330,3 +1330,13 @@ navbar .logo {
 .footer {
     height: 10%;
 }
+
+_::-webkit-full-page-media, _:future, :root #vcont {
+    height: 72%;
+    
+}
+_::-webkit-full-page-media, _:future, :root body {
+    background-color: red;    
+}
+
+  
