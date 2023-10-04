@@ -1012,7 +1012,7 @@ navbar .logo {
 }
 
 .container-room .right-cont {
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
     height: 100%;
     width: 30%;
     transition-duration: 500ms;
@@ -1312,9 +1312,9 @@ navbar .logo {
     .sidebar{
         height: 178vmin;
     }
-    .right-cont{
+    /* .right-cont{
         height: 90vmin;
-    }
+    } */
     .container-room{
         overflow-y: hidden;
     }
