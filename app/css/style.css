@@ -1333,11 +1333,8 @@ navbar .logo {
 
 _::-webkit-full-page-media, _:future, :root #vcont {
     height: 72%;
-    
 }
-_::-webkit-full-page-media, _:future, :root body {
-    background-color: red;  
-    font-size: 100px;  
+_::-webkit-full-page-media, _:future, :root .sidebar {
+    height: 87%;
 }
-
   
