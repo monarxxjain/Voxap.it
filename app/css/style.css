@@ -807,7 +807,7 @@ navbar .logo {
     font-size: 20px;
 }
 #vcont {
-    height: 90%;
+    height: 85%;
 }
 .container-room .left-cont .video-cont-single .video-box .video-frame {
     background-color: #353b48;
@@ -1301,16 +1301,20 @@ navbar .logo {
 	
 	
 }
+.room{
+    height: 100%;
+    overflow-y: hidden;
+}
 
 @media (max-width: 450px){
-    #vcont{
-        height: 70vh;
+    /* #vcont{
+        height: 65%;
     }
     .nasc-desk{
-        height: 10vh;
-    }
+        height: 30%;
+    } */
     .sidebar{
-        height: 178vmin;
+        height: 100%;
     }
     /* .right-cont{
         height: 90vmin;
@@ -1318,4 +1322,9 @@ navbar .logo {
     .container-room{
         overflow-y: hidden;
     }
+}
+
+
+.footer {
+    height: 10%;
 }
