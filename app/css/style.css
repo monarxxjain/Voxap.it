@@ -1336,7 +1336,8 @@ _::-webkit-full-page-media, _:future, :root #vcont {
     
 }
 _::-webkit-full-page-media, _:future, :root body {
-    background-color: red;    
+    background-color: red;  
+    font-size: 100px;  
 }
 
   
