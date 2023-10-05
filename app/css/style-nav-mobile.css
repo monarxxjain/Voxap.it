@@ -57,12 +57,12 @@ men {
     z-index: 5;
 }
 
-#menu-m:not(:target) > .icon-plus:before,
+/* #menu-m:not(:target) > .icon-plus:before,
 #menu-m:target > .icon-minus:before {
     opacity: 1;
     background-color: #393e46;
     color: #ffffff;
-}
+} */
 
 .menu-m-item {
     width: 60px;
