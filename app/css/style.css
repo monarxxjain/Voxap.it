@@ -1344,8 +1344,8 @@ navbar .logo {
       .video-captions {
         flex-shrink: 0;
         min-height: 50px;
-        overflow-y: auto;
-        max-height: 90%;
+        overflow-y: scroll;
+        /* max-height: 90%; */
         text-align: center;
         padding: 10px;
       }
