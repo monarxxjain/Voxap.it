@@ -1183,19 +1183,21 @@ setTimeout(() => {
     let isTranslating = false;
 
     if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
-        let recognition = new (window.webkitSpeechRecognition ||
-            window.SpeechRecognition)();
-
+        let recognition = new (window.webkitSpeechRecognition || window.SpeechRecognition)();
         recognition.lang = "it-IT";
         recognition.interimResults = true;
-
+    
+        let timeoutId;
+    
         recognition.onresult = async (event) => {
+            clearTimeout(timeoutId); // Clear the previous timeout
+    
             let transcript = "";
             for (let i = 0; i < event.results.length; i++) {
                 transcript += event.results[i][0].transcript + " ";
             }
             parolaCorrenteDiv.textContent = transcript;
-
+    
             let selectedLanguage = languageSelect.value;
             const translationResponse = await fetch(
                 `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(
@@ -1204,26 +1206,34 @@ setTimeout(() => {
             );
             const translationData = await translationResponse.json();
             const translation = translationData[0][0][0];
-
+    
             fraseCorrente = translation;
             isTranslating = true;
-
+    
             outputDiv.textContent = `${fraseCorrente}`;
+    
+            // Set a new timeout to clear the captions div after 10 seconds
+            timeoutId = setTimeout(() => {
+                parolaCorrenteDiv.textContent = "";
+                outputDiv.textContent=""
+            }, 10000);
+    
             let objDiv = document.getElementById("big-cont")
-            objDiv.scrollTop=objDiv.scrollHeight
+            objDiv.scrollTop = objDiv.scrollHeight;
             socket.emit("send_message", fraseCorrente);
         };
-
+    
         recognition.onend = () => {
             recognition.start();
         };
-
+    
         recognition.onerror = (event) => {
             console.error("Errore di riconoscimento vocale: ", event.error);
         };
-
+    
         recognition.start();
-    } else {
+    }
+     else {
         console.error("Il browser non supporta la Web Speech API.");
     }
 }, 7000);
