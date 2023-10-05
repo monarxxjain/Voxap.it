@@ -762,7 +762,31 @@ navbar .logo {
     height: 100%;
     min-height: 150px;
 }
-.video-box {
+.video-cont-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .video-box {
+    background-color: #353b48;
+    flex: 1;
+    max-height: 90%;
+    width: 100%;
+    border-radius: 5px;
+    position: relative;
+  }
+  
+  .video-captions {
+    flex-shrink: 0;
+    min-height: 50px;
+    overflow-y: auto;
+    text-align: center;
+    padding: 10px;
+    /* background-color: #ffffff; */
+  }
+  /* .video-box {
     background-color: #353b48;
     height: 90%;
     width: 100%;
@@ -775,7 +799,8 @@ navbar .logo {
     min-height: 50px;
     overflow-y: auto;
     text-align: center;
-}
+} */
+  
 
 .container-room .left-cont .video-cont .video-box .video-frame {
     background-color: #353b48;
