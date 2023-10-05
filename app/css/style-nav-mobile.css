@@ -169,7 +169,7 @@ men {
     background-color: #393e46;
     color: #ffffff;
 }
-
+/* 
 #menu-m:target > .menu-m-item:nth-child(6) {
     transform: rotate(60deg) translateY(-140px) rotate(300deg);
     transition-delay: 0s;
@@ -188,4 +188,4 @@ men {
 #menu-m:target > .menu-m-item:nth-child(4) {
     transform: rotate(-60deg) translateY(-140px) rotate(60deg);
     transition-delay: 0.3s;
-}
+} */
