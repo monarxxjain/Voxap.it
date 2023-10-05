@@ -17,233 +17,233 @@ const fileInput = document.querySelector("#targetFile");
 const previewBackground = document.querySelector(".preview-background");
 const closePreviewDiv = document.querySelector("#preview-close");
 let remoteSid="";
-const closePreview = () => {
-	let filePreview = document.querySelector("#filePreview");
-	if (filePreview) {
-		filePreview.remove();
-	}
-	previewBackground.classList.add("isHidden");
-}
-closePreviewDiv.addEventListener("click", () => {
-	closePreview();
-});
+// const closePreview = () => {
+// 	let filePreview = document.querySelector("#filePreview");
+// 	if (filePreview) {
+// 		filePreview.remove();
+// 	}
+// 	previewBackground.classList.add("isHidden");
+// }
+// closePreviewDiv.addEventListener("click", () => {
+// 	closePreview();
+// });
 
-//Mobile select
-const flag = document.getElementById("selLangMobile");
-const mobileSelect = document.getElementById("languageSelectMobile");
-let mobileSelectIsHidden = true;
-flag.addEventListener("click", () => {
-    if (mobileSelectIsHidden) {
-        mobileSelect.classList.remove("hide-select-mobile");
-    } else {
-        mobileSelect.classList.add("hide-select-mobile");
-    }
-    mobileSelectIsHidden = !mobileSelectIsHidden;
-});
+// //Mobile select
+// const flag = document.getElementById("selLangMobile");
+// const mobileSelect = document.getElementById("languageSelectMobile");
+// let mobileSelectIsHidden = true;
+// flag.addEventListener("click", () => {
+//     if (mobileSelectIsHidden) {
+//         mobileSelect.classList.remove("hide-select-mobile");
+//     } else {
+//         mobileSelect.classList.add("hide-select-mobile");
+//     }
+//     mobileSelectIsHidden = !mobileSelectIsHidden;
+// });
 
-//Keep select changes consistent
-const desktopSelect = document.getElementById("languageSelect");
-desktopSelect.addEventListener("change", () => {
-    mobileSelect.value = desktopSelect.value;
-});
-mobileSelect.addEventListener("change", () => {
-    desktopSelect.value = mobileSelect.value;
-});
+// //Keep select changes consistent
+// const desktopSelect = document.getElementById("languageSelect");
+// desktopSelect.addEventListener("change", () => {
+//     mobileSelect.value = desktopSelect.value;
+// });
+// mobileSelect.addEventListener("change", () => {
+//     desktopSelect.value = mobileSelect.value;
+// });
 
-//whiteboard js start
-const whiteboardCont = document.querySelector(".whiteboard-cont");
-const canvas = document.querySelector("#whiteboard");
-const ctx = canvas.getContext("2d");
+// //whiteboard js start
+// const whiteboardCont = document.querySelector(".whiteboard-cont");
+// const canvas = document.querySelector("#whiteboard");
+// const ctx = canvas.getContext("2d");
 
-let boardVisisble = false;
+// let boardVisisble = false;
 
-whiteboardCont.style.visibility = "hidden";
+// whiteboardCont.style.visibility = "hidden";
 
-let isDrawing = 0;
-let x = 0;
-let y = 0;
-let color = "black";
-let drawsize = 3;
-let colorRemote = "black";
-let drawsizeRemote = 3;
+// let isDrawing = 0;
+// let x = 0;
+// let y = 0;
+// let color = "black";
+// let drawsize = 3;
+// let colorRemote = "black";
+// let drawsizeRemote = 3;
 
-function fitToContainer(canvas) {
-    canvas.style.width = "100%";
-    canvas.style.height = "100%";
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-}
+// function fitToContainer(canvas) {
+//     canvas.style.width = "100%";
+//     canvas.style.height = "100%";
+//     canvas.width = canvas.offsetWidth;
+//     canvas.height = canvas.offsetHeight;
+// }
 
-fitToContainer(canvas);
+// fitToContainer(canvas);
 
-//getCanvas call is under join room call
-socket.on("getCanvas", (url) => {
-    let img = new Image();
-    img.onload = start;
-    img.src = url;
+// //getCanvas call is under join room call
+// socket.on("getCanvas", (url) => {
+//     let img = new Image();
+//     img.onload = start;
+//     img.src = url;
 
-    function start() {
-        ctx.drawImage(img, 0, 0);
-    }
+//     function start() {
+//         ctx.drawImage(img, 0, 0);
+//     }
 
-    console.log("got canvas", url);
-});
+//     console.log("got canvas", url);
+// });
 
-function setColor(newcolor) {
-    color = newcolor;
-    drawsize = 3;
-}
+// function setColor(newcolor) {
+//     color = newcolor;
+//     drawsize = 3;
+// }
 
-function setEraser() {
-    color = "white";
-    drawsize = 10;
-}
+// function setEraser() {
+//     color = "white";
+//     drawsize = 10;
+// }
 
-//might remove this
-function reportWindowSize() {
-    fitToContainer(canvas);
-}
+// //might remove this
+// function reportWindowSize() {
+//     fitToContainer(canvas);
+// }
 
-window.onresize = reportWindowSize;
-//
+// window.onresize = reportWindowSize;
+// //
 
-function clearBoard() {
-    if (
-        window.confirm(
-            "Are you sure you want to clear board? This cannot be undone"
-        )
-    ) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        socket.emit("store canvas", canvas.toDataURL());
-        socket.emit("clearBoard");
-    } else return;
-}
+// function clearBoard() {
+//     if (
+//         window.confirm(
+//             "Are you sure you want to clear board? This cannot be undone"
+//         )
+//     ) {
+//         ctx.clearRect(0, 0, canvas.width, canvas.height);
+//         socket.emit("store canvas", canvas.toDataURL());
+//         socket.emit("clearBoard");
+//     } else return;
+// }
 
-socket.on("clearBoard", () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-});
+// socket.on("clearBoard", () => {
+//     ctx.clearRect(0, 0, canvas.width, canvas.height);
+// });
 
-function draw(newx, newy, oldx, oldy) {
-    ctx.strokeStyle = color;
-    ctx.lineWidth = drawsize;
-    ctx.beginPath();
-    ctx.moveTo(oldx, oldy);
-    ctx.lineTo(newx, newy);
-    ctx.stroke();
-    ctx.closePath();
+// function draw(newx, newy, oldx, oldy) {
+//     ctx.strokeStyle = color;
+//     ctx.lineWidth = drawsize;
+//     ctx.beginPath();
+//     ctx.moveTo(oldx, oldy);
+//     ctx.lineTo(newx, newy);
+//     ctx.stroke();
+//     ctx.closePath();
 
-    socket.emit("store canvas", canvas.toDataURL());
-}
+//     socket.emit("store canvas", canvas.toDataURL());
+// }
 
-function drawRemote(newx, newy, oldx, oldy) {
-    ctx.strokeStyle = colorRemote;
-    ctx.lineWidth = drawsizeRemote;
-    ctx.beginPath();
-    ctx.moveTo(oldx, oldy);
-    ctx.lineTo(newx, newy);
-    ctx.stroke();
-    ctx.closePath();
-}
+// function drawRemote(newx, newy, oldx, oldy) {
+//     ctx.strokeStyle = colorRemote;
+//     ctx.lineWidth = drawsizeRemote;
+//     ctx.beginPath();
+//     ctx.moveTo(oldx, oldy);
+//     ctx.lineTo(newx, newy);
+//     ctx.stroke();
+//     ctx.closePath();
+// }
 
-canvas.addEventListener("mousedown", (e) => {
-    x = e.offsetX;
-    y = e.offsetY;
-    isDrawing = 1;
-});
+// canvas.addEventListener("mousedown", (e) => {
+//     x = e.offsetX;
+//     y = e.offsetY;
+//     isDrawing = 1;
+// });
 
-canvas.addEventListener("mousemove", (e) => {
-    if (isDrawing) {
-        draw(e.offsetX, e.offsetY, x, y);
-        socket.emit("draw", e.offsetX, e.offsetY, x, y, color, drawsize);
-        x = e.offsetX;
-        y = e.offsetY;
-    }
-});
+// canvas.addEventListener("mousemove", (e) => {
+//     if (isDrawing) {
+//         draw(e.offsetX, e.offsetY, x, y);
+//         socket.emit("draw", e.offsetX, e.offsetY, x, y, color, drawsize);
+//         x = e.offsetX;
+//         y = e.offsetY;
+//     }
+// });
 
-window.addEventListener("mouseup", (e) => {
-    if (isDrawing) {
-        isDrawing = 0;
-    }
-});
+// window.addEventListener("mouseup", (e) => {
+//     if (isDrawing) {
+//         isDrawing = 0;
+//     }
+// });
 
-socket.on("draw", (newX, newY, prevX, prevY, color, size) => {
-    colorRemote = color;
-    drawsizeRemote = size;
-    drawRemote(newX, newY, prevX, prevY);
-});
+// socket.on("draw", (newX, newY, prevX, prevY, color, size) => {
+//     colorRemote = color;
+//     drawsizeRemote = size;
+//     drawRemote(newX, newY, prevX, prevY);
+// });
 
-//whiteboard js end
+// //whiteboard js end
 
-let videoAllowed = true;
-let audioAllowed = true;
+// let videoAllowed = true;
+// let audioAllowed = true;
 
-let micInfo = {};
-let videoInfo = {};
+// let micInfo = {};
+// let videoInfo = {};
 
-let videoTrackReceived = {};
+// let videoTrackReceived = {};
 
-let mymuteicon = document.querySelector("#mymuteicon");
-mymuteicon.style.visibility = "hidden";
+// let mymuteicon = document.querySelector("#mymuteicon");
+// mymuteicon.style.visibility = "hidden";
 
-let myvideooff = document.querySelector("#myvideooff");
-myvideooff.style.visibility = "hidden";
+// let myvideooff = document.querySelector("#myvideooff");
+// myvideooff.style.visibility = "hidden";
 
-const configuration = { iceServers: [{ urls: "stun:stun.stunprotocol.org" }] };
+// const configuration = { iceServers: [{ urls: "stun:stun.stunprotocol.org" }] };
 
-const mediaConstraints = { video: true, audio: true };
+// const mediaConstraints = { video: true, audio: true };
 
-let connections = {};
-let cName = {};
-let audioTrackSent = {};
-let videoTrackSent = {};
-let dataChannels = {};
+// let connections = {};
+// let cName = {};
+// let audioTrackSent = {};
+// let videoTrackSent = {};
+// let dataChannels = {};
 
-let mystream, myscreenshare;
+// let mystream, myscreenshare;
 
-document.querySelector(".roomcode").innerHTML = `${window.location.origin}/room.html?room=${roomid}`;
+// document.querySelector(".roomcode").innerHTML = `${window.location.origin}/room.html?room=${roomid}`;
 
-// funzione copia link di cui sopra
-function CopyClassText() {
-    var textToCopy = document.querySelector(".roomcode");
-    var currentRange;
-    if (document.getSelection().rangeCount > 0) {
-        currentRange = document.getSelection().getRangeAt(0);
-        window.getSelection().removeRange(currentRange);
-    } else {
-        currentRange = false;
-    }
+// // funzione copia link di cui sopra
+// function CopyClassText() {
+//     var textToCopy = document.querySelector(".roomcode");
+//     var currentRange;
+//     if (document.getSelection().rangeCount > 0) {
+//         currentRange = document.getSelection().getRangeAt(0);
+//         window.getSelection().removeRange(currentRange);
+//     } else {
+//         currentRange = false;
+//     }
 
-    var CopyRange = document.createRange();
-    CopyRange.selectNode(textToCopy);
-    window.getSelection().addRange(CopyRange);
-    document.execCommand("copy");
+//     var CopyRange = document.createRange();
+//     CopyRange.selectNode(textToCopy);
+//     window.getSelection().addRange(CopyRange);
+//     document.execCommand("copy");
 
-    window.getSelection().removeRange(CopyRange);
+//     window.getSelection().removeRange(CopyRange);
 
-    if (currentRange) {
-        window.getSelection().addRange(currentRange);
-    }
+//     if (currentRange) {
+//         window.getSelection().addRange(currentRange);
+//     }
 
-	// fa apparire la finestra di condivisione
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Link to the virtual room',
-                    url: window.location.href // Ottiene l'URL della pagina corrente
-                }).then(() => {
-                    console.log('Link condiviso con successo!');
-                }).catch((error) => {
-                    console.error('Errore nella condivisione del link:', error);
-                });
-            } else {
-                console.warn('L\'API di condivisione non è supportata su questo dispositivo.');
-            }
+// 	// fa apparire la finestra di condivisione
+//             if (navigator.share) {
+//                 navigator.share({
+//                     title: 'Link to the virtual room',
+//                     url: window.location.href // Ottiene l'URL della pagina corrente
+//                 }).then(() => {
+//                     console.log('Link condiviso con successo!');
+//                 }).catch((error) => {
+//                     console.error('Errore nella condivisione del link:', error);
+//                 });
+//             } else {
+//                 console.warn('L\'API di condivisione non è supportata su questo dispositivo.');
+//             }
 	
-	// modifica la scritta sul tasto
-    document.querySelector(".copycode-button").textContent = "Let's go!";
-    setTimeout(() => {
-        document.querySelector(".copycode-button").innerHTML = '<i class="fas fa-user-plus"></i> Invite';
-    }, 5000);
-}
+// 	// modifica la scritta sul tasto
+//     document.querySelector(".copycode-button").textContent = "Let's go!";
+//     setTimeout(() => {
+//         document.querySelector(".copycode-button").innerHTML = '<i class="fas fa-user-plus"></i> Invite';
+//     }, 5000);
+// }
 
 
 continueButt.addEventListener("click", () => {
@@ -445,7 +445,7 @@ const createFileMessage = (sid, filename, filesize, sentTime, senderName, filety
 	info.append(userNameDiv, time);
 	content.append(filenameDiv, filesizeDiv);
 	message.append(info, content, hiddenInput, buttonDiv);
-	// chatRoom.scrollTop = chatRoom.scrollHeight;
+	chatRoom.scrollTop = chatRoom.scrollHeight;
 	chatRoom.append(message);
 }
 
