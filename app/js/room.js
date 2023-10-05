@@ -16,16 +16,16 @@ const screenShareButt = document.querySelector(".screenshare");
 const fileInput = document.querySelector("#targetFile");
 const previewBackground = document.querySelector(".preview-background");
 const closePreviewDiv = document.querySelector("#preview-close");
-let remoteSid="";
+let remoteSid = "";
 const closePreview = () => {
-	let filePreview = document.querySelector("#filePreview");
-	if (filePreview) {
-		filePreview.remove();
-	}
-	previewBackground.classList.add("isHidden");
-}
+    let filePreview = document.querySelector("#filePreview");
+    if (filePreview) {
+        filePreview.remove();
+    }
+    previewBackground.classList.add("isHidden");
+};
 closePreviewDiv.addEventListener("click", () => {
-	closePreview();
+    closePreview();
 });
 
 //Mobile select
@@ -200,7 +200,9 @@ let dataChannels = {};
 
 let mystream, myscreenshare;
 
-document.querySelector(".roomcode").innerHTML = `${window.location.origin}/room.html?room=${roomid}`;
+document.querySelector(
+    ".roomcode"
+).innerHTML = `${window.location.origin}/room.html?room=${roomid}`;
 
 // funzione copia link di cui sopra
 function CopyClassText() {
@@ -224,27 +226,32 @@ function CopyClassText() {
         window.getSelection().addRange(currentRange);
     }
 
-	// fa apparire la finestra di condivisione
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Link to the virtual room',
-                    url: window.location.href // Ottiene l'URL della pagina corrente
-                }).then(() => {
-                    console.log('Link condiviso con successo!');
-                }).catch((error) => {
-                    console.error('Errore nella condivisione del link:', error);
-                });
-            } else {
-                console.warn('L\'API di condivisione non è supportata su questo dispositivo.');
-            }
-	
-	// modifica la scritta sul tasto
+    // fa apparire la finestra di condivisione
+    if (navigator.share) {
+        navigator
+            .share({
+                title: "Link to the virtual room",
+                url: window.location.href, // Ottiene l'URL della pagina corrente
+            })
+            .then(() => {
+                console.log("Link condiviso con successo!");
+            })
+            .catch((error) => {
+                console.error("Errore nella condivisione del link:", error);
+            });
+    } else {
+        console.warn(
+            "L'API di condivisione non è supportata su questo dispositivo."
+        );
+    }
+
+    // modifica la scritta sul tasto
     document.querySelector(".copycode-button").textContent = "Let's go!";
     setTimeout(() => {
-        document.querySelector(".copycode-button").innerHTML = '<i class="fas fa-user-plus"></i> Invite';
+        document.querySelector(".copycode-button").innerHTML =
+            '<i class="fas fa-user-plus"></i> Invite';
     }, 5000);
 }
-
 
 continueButt.addEventListener("click", () => {
     if (nameField.value == "") return;
@@ -305,7 +312,7 @@ const adjustGrid = () => {
             gridDiv.style.gridTemplateRows = "1fr";
         }
         let videoBoxes = document.getElementsByClassName("video-box");
-        for (let i = 0; i< videoBoxes.length; i++) {
+        for (let i = 0; i < videoBoxes.length; i++) {
             videoBoxes[i].style.height = "85%";
         }
         return;
@@ -321,16 +328,16 @@ const adjustGrid = () => {
     console.log(division);
     let rows = "";
     for (let i = 0; i < division; i++) {
-        rows+= i === division - 1 ? `${num}%` : `${num}% `;
+        rows += i === division - 1 ? `${num}%` : `${num}% `;
     }
     gridDiv.style.gridTemplateRows = rows;
     let videoBoxes = document.getElementsByClassName("video-box");
     if (count >= 3) {
-        for (let i = 0; i< videoBoxes.length; i++) {
+        for (let i = 0; i < videoBoxes.length; i++) {
             videoBoxes[i].style.height = `${100 - division * 10}%`;
         }
     }
-}
+};
 
 function startCall() {
     navigator.mediaDevices
@@ -354,62 +361,70 @@ function startCall() {
 let filesStack = {};
 
 const getFileSize = (size) => {
-	let unit = "";
-	let num = 0;
-	if (size < 999) {
-		num = size;
-		unit = "B";
-	} else if (size < 999999) {
-		num = size / 1000;
-		unit = "KB";
-	} else {
-		num = size / 1000000;
-		unit = "MB";
-	}
-	return `${num.toFixed(2)}${unit}`;
-}
-
-const createPreview = (filetype) => {
-	let preview;
-	if (filetype.includes("image")) {
-		preview = document.createElement("img");
-	} else {
-		if (filetype.includes("video")) {
-			preview = document.createElement("video");	
-		} else {
-			preview = document.createElement("iframe");
-		}
-		preview.style.width = "100%";
-	}
-	preview.id = "filePreview";
-	let previewDiv = document.querySelector(".preview");
-	previewDiv.append(preview);
-	return preview;
+    let unit = "";
+    let num = 0;
+    if (size < 999) {
+        num = size;
+        unit = "B";
+    } else if (size < 999999) {
+        num = size / 1000;
+        unit = "KB";
+    } else {
+        num = size / 1000000;
+        unit = "MB";
+    }
+    return `${num.toFixed(2)}${unit}`;
 };
 
-const createFileMessage = (sid, filename, filesize, sentTime, senderName, filetype, ownUrl) => {
-	let message = document.createElement("div");
-	let info = document.createElement("div");
-	let userNameDiv = document.createElement("div");
-	let time = document.createElement("div");
-	let content = document.createElement("div");
-	let filenameDiv = document.createElement("div");
-	let filesizeDiv = document.createElement("div");
-	let hiddenInput = document.createElement("input");
+const createPreview = (filetype) => {
+    let preview;
+    if (filetype.includes("image")) {
+        preview = document.createElement("img");
+    } else {
+        if (filetype.includes("video")) {
+            preview = document.createElement("video");
+        } else {
+            preview = document.createElement("iframe");
+        }
+        preview.style.width = "100%";
+    }
+    preview.id = "filePreview";
+    let previewDiv = document.querySelector(".preview");
+    previewDiv.append(preview);
+    return preview;
+};
+
+const createFileMessage = (
+    sid,
+    filename,
+    filesize,
+    sentTime,
+    senderName,
+    filetype,
+    ownUrl
+) => {
+    let message = document.createElement("div");
+    let info = document.createElement("div");
+    let userNameDiv = document.createElement("div");
+    let time = document.createElement("div");
+    let content = document.createElement("div");
+    let filenameDiv = document.createElement("div");
+    let filesizeDiv = document.createElement("div");
+    let hiddenInput = document.createElement("input");
     let buttonDiv = document.createElement("div");
     let previewButton = document.createElement("div");
     let downloadButton = document.createElement("a");
-	if (sid) {
+    if (sid) {
         const name = `${sid}-${filename}`;
         filesStack[sid] = name;
         hiddenInput.id = `${name}+input`;
         hiddenInput.value = filetype;
-		message.classList.add("receiver");
+        message.classList.add("receiver");
         previewButton.id = name;
         downloadButton.id = `${name}+download`;
-	} else {
-		message.classList.add("sender");
-	}
+    } else {
+        message.classList.add("sender");
+    }
 
     previewButton.innerText = "Preview";
     downloadButton.innerText = "Download";
@@ -425,63 +440,79 @@ const createFileMessage = (sid, filename, filesize, sentTime, senderName, filety
             previewBackground.classList.remove("isHidden");
         });
     }
-	hiddenInput.hidden = true;
-	userNameDiv.innerText = senderName;
-	const hours = new Date(sentTime).getHours();
-	const minutes = new Date(sentTime).getMinutes();
-	time.innerText = `${hours > 12 ? hours - 12 : hours >= 10 ? hours : `0${hours}`}:${minutes >= 10 ? minutes : `0${minutes}`} ${hours >= 12 ? "PM" : "AM"}`;
-	filenameDiv.innerText = filename;
-	filesizeDiv.innerText = getFileSize(filesize);
-	
-	message.classList.add("message");
-	info.classList.add("info");
-	userNameDiv.classList.add("username");
-	time.classList.add("time");
-	content.classList.add("content");
-	filesizeDiv.classList.add("size");
+    hiddenInput.hidden = true;
+    userNameDiv.innerText = senderName;
+    const hours = new Date(sentTime).getHours();
+    const minutes = new Date(sentTime).getMinutes();
+    time.innerText = `${
+        hours > 12 ? hours - 12 : hours >= 10 ? hours : `0${hours}`
+    }:${minutes >= 10 ? minutes : `0${minutes}`} ${hours >= 12 ? "PM" : "AM"}`;
+    filenameDiv.innerText = filename;
+    filesizeDiv.innerText = getFileSize(filesize);
+
+    message.classList.add("message");
+    info.classList.add("info");
+    userNameDiv.classList.add("username");
+    time.classList.add("time");
+    content.classList.add("content");
+    filesizeDiv.classList.add("size");
     buttonDiv.classList.add("file-options");
 
     buttonDiv.append(previewButton, downloadButton);
-	info.append(userNameDiv, time);
-	content.append(filenameDiv, filesizeDiv);
-	message.append(info, content, hiddenInput, buttonDiv);
-	chatRoom.scrollTop = chatRoom.scrollHeight;
-	chatRoom.append(message);
-}
+    info.append(userNameDiv, time);
+    content.append(filenameDiv, filesizeDiv);
+    message.append(info, content, hiddenInput, buttonDiv);
+    chatRoom.scrollTop = chatRoom.scrollHeight;
+    chatRoom.append(message);
+};
 
 let sizes = {};
 let slices = {};
 let receivedSize = {};
 
 const createChannel = (peer, sid) => {
-	const channel = peer.createDataChannel(roomid, {
-		negotiated: true,
-		id: 5
-	});
+    const channel = peer.createDataChannel(roomid, {
+        negotiated: true,
+        id: 5,
+    });
     channel.binaryType = "arraybuffer";
-	channel.onopen = () => {
-		console.log("Channel is opened");
-	}
-	channel.onmessage = (event) => {
+    channel.onopen = () => {
+        console.log("Channel is opened");
+    };
+    channel.onmessage = (event) => {
         try {
             if (typeof event.data === "string") {
-                const { senderName, filename, time, filesize, filetype } = JSON.parse(event.data);
+                const { senderName, filename, time, filesize, filetype } =
+                    JSON.parse(event.data);
                 sizes[sid] = filesize;
                 slices[sid] = [];
                 receivedSize[sid] = 0;
-			    createFileMessage(sid, filename, filesize, time, senderName, filetype, null);
+                createFileMessage(
+                    sid,
+                    filename,
+                    filesize,
+                    time,
+                    senderName,
+                    filetype,
+                    null
+                );
             } else {
-                receivedSize[sid]+= event.data.byteLength;
+                receivedSize[sid] += event.data.byteLength;
                 slices[sid].push(event.data);
                 if (receivedSize[sid] === sizes[sid]) {
                     const data = new Blob(slices[sid]);
                     const blobUrl = URL.createObjectURL(data);
                     const ele = document.getElementById(filesStack[sid]);
-                    const eleInput = document.getElementById(filesStack[sid] + "+input");
-                    const downloadButton = document.getElementById(filesStack[sid] + "+download");
+                    const eleInput = document.getElementById(
+                        filesStack[sid] + "+input"
+                    );
+                    const downloadButton = document.getElementById(
+                        filesStack[sid] + "+download"
+                    );
                     downloadButton.href = blobUrl;
                     ele.addEventListener("click", () => {
-                        let filePreview = document.getElementById("filePreview");
+                        let filePreview =
+                            document.getElementById("filePreview");
                         if (!filePreview) {
                             filePreview = createPreview(eleInput.value);
                         }
@@ -510,14 +541,13 @@ const createChannel = (peer, sid) => {
                 });
                 filesStack[sid] = null; */
             }
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e);
         }
-	}
+    };
     console.log(sid);
-	dataChannels[sid] = channel;
-}
+    dataChannels[sid] = channel;
+};
 
 const createConnection = (connections, sid, isHandleVideoOffer) => {
     try {
@@ -552,8 +582,8 @@ const createConnection = (connections, sid, isHandleVideoOffer) => {
                 name.classList.add("nametag");
                 name.innerHTML = `${cName[sid]}`;
                 vidContContainer.id = sid;
-                remoteSid=sid;
-                console.log(remoteSid)
+                remoteSid = sid;
+                console.log(remoteSid);
                 muteIcon.id = `mute${sid}`;
                 videoOff.id = `vidoff${sid}`;
                 muteIcon.innerHTML = `<i class="fas fa-microphone-slash"></i>`;
@@ -601,7 +631,7 @@ const createConnection = (connections, sid, isHandleVideoOffer) => {
         };
 
         connections[sid].onnegotiationneeded = function () {
-			createChannel(connections[sid], sid);
+            createChannel(connections[sid], sid);
             connections[sid]
                 .createOffer()
                 .then(function (offer) {
@@ -643,7 +673,7 @@ const createConnection = (connections, sid, isHandleVideoOffer) => {
                     });
                 })
                 .then(() => {
-					createChannel(connections[sid], sid);
+                    createChannel(connections[sid], sid);
                     return connections[sid].createAnswer();
                 })
                 .then((answer) => {
@@ -794,7 +824,9 @@ messageField.addEventListener("keyup", function (event) {
 
 socket.on("message", (msg, sendername, time) => {
     chatRoom.scrollTop = chatRoom.scrollHeight;
-    chatRoom.innerHTML += `<div class="message ${sendername === username ? "sender" : "receiver"}">
+    chatRoom.innerHTML += `<div class="message ${
+        sendername === username ? "sender" : "receiver"
+    }">
     <div class="info">
         <div class="username">${sendername}</div>
         <div class="time">${time}</div>
@@ -852,7 +884,7 @@ function audioFunction(ele) {
         }
         ele.innerHTML = `<i class="fas fa-microphone-slash"></i>`;
         ele.style.backgroundColor = "#b12c2c";
-		mymuteicon.style.visibility = "visible";
+        mymuteicon.style.visibility = "visible";
     } else {
         for (let key in audioTrackSent) {
             audioTrackSent[key].enabled = true;
@@ -882,16 +914,22 @@ for (let i = 0; i < audios.length; i++) {
     });
 }
 
-socket.on("answer_message",async (msg)=>{
-    if(remoteSid!==""){
+socket.on("answer_message", async (msg) => {
+    if (remoteSid !== "") {
         let selectedLanguage = languageSelect.value;
-        const translationResponse = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(msg)}`);
+        const translationResponse = await fetch(
+            `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(
+                msg
+            )}`
+        );
         const translationData = await translationResponse.json();
-        const translation = translationData[0][0][0]
-        document.querySelector(`#${remoteSid} .custom-style-1`).textContent=msg
-        document.querySelector(`#${remoteSid} .custom-style-2`).textContent=translation
+        const translation = translationData[0][0][0];
+        document.querySelector(`#${remoteSid} .custom-style-1`).textContent =
+            msg;
+        document.querySelector(`#${remoteSid} .custom-style-2`).textContent =
+            translation;
     }
-})
+});
 
 socket.on("action", (msg, sid) => {
     switch (msg) {
@@ -941,16 +979,14 @@ function leaveRoom() {
     location.href = "/";
 }
 
-function handleStream(audioStream, sid) {
-
-}
+function handleStream(audioStream, sid) {}
 
 const sendSlice = (offset, file, channel) => {
     const chunkSize = 16384;
     const fileReader = new FileReader();
-    fileReader.addEventListener("load", e => {
+    fileReader.addEventListener("load", (e) => {
         channel.send(e.target.result);
-        offset+= e.target.result.byteLength;
+        offset += e.target.result.byteLength;
         if (offset < file.size) {
             sendSlice(offset, file, channel);
         }
@@ -959,87 +995,103 @@ const sendSlice = (offset, file, channel) => {
         console.log(err);
     });
     fileReader.readAsArrayBuffer(file.slice(offset, offset + chunkSize));
-}
+};
 
 fileInput.addEventListener("change", (e) => {
-	const files = e.target.files;
-	if (files && files.length > 0) {
-		const keys = Object.keys(dataChannels);
-		for (let j = 0; j < files.length; j++) {
-			const file = files[j];
-			const sentTime = Date.now();
+    const files = e.target.files;
+    if (files && files.length > 0) {
+        const keys = Object.keys(dataChannels);
+        for (let j = 0; j < files.length; j++) {
+            const file = files[j];
+            const sentTime = Date.now();
             console.log(dataChannels, keys);
             for (let i = 0; i < keys.length; i++) {
-                dataChannels[keys[i]].send(JSON.stringify({
-                    senderName: username,
-                    filename: file.name,
-                    time: sentTime,
-                    filesize: file.size,
-                    filetype: file.type
-                }));
+                dataChannels[keys[i]].send(
+                    JSON.stringify({
+                        senderName: username,
+                        filename: file.name,
+                        time: sentTime,
+                        filesize: file.size,
+                        filetype: file.type,
+                    })
+                );
                 sendSlice(0, file, dataChannels[keys[i]]);
             }
             const fileReader = new FileReader();
             fileReader.onload = () => {
-                createFileMessage(null, file.name, file.size, sentTime, username, file.type, URL.createObjectURL(new Blob([fileReader.result])));
-            }
+                createFileMessage(
+                    null,
+                    file.name,
+                    file.size,
+                    sentTime,
+                    username,
+                    file.type,
+                    URL.createObjectURL(new Blob([fileReader.result]))
+                );
+            };
             fileReader.readAsArrayBuffer(file);
-		}	
-	}
+        }
+    }
 });
 
 setTimeout(() => {
-    
-let siteWidth = window.innerWidth;
-console.log(siteWidth)
-let languageSelect;
-if(siteWidth>954){
-    languageSelect = document.getElementById('languageSelect');
-}
-else{
-    languageSelect = document.getElementById('languageSelectMobile');
-}
-const outputDiv = document.getElementById('output');
-const parolaCorrenteDiv = document.getElementById('parolaCorrente');
-let fraseCorrente = '';
-let isTranslating = false;
+    let siteWidth = window.innerWidth;
+    console.log(siteWidth);
+    let languageSelect;
+    if (siteWidth > 954) {
+        languageSelect = document.getElementById("languageSelect");
+    } else {
+        languageSelect = document.getElementById("languageSelectMobile");
+    }
+    const outputDiv = document.getElementById("output");
+    const parolaCorrenteDiv = document.getElementById("parolaCorrente");
+    let fraseCorrente = "";
+    let isTranslating = false;
 
-if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-  let recognition = new (window.webkitSpeechRecognition || window.SpeechRecognition)();
-  
-  recognition.lang = 'it-IT';
-  recognition.interimResults = true;
-  
-  recognition.onresult = async (event) => {
-      let transcript = '';
-      for (let i = 0; i < event.results.length; i++) {
-          transcript += event.results[i][0].transcript + ' ';
-        }
-        parolaCorrenteDiv.textContent = transcript;
-        
-        
-    let selectedLanguage = languageSelect.value;
-    const translationResponse = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(transcript)}`);
-    const translationData = await translationResponse.json();
-    const translation = translationData[0][0][0];
+    if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
+        let recognition = new (window.webkitSpeechRecognition ||
+            window.SpeechRecognition)();
 
-    fraseCorrente = translation;
-    isTranslating = true;
+        recognition.lang = "it-IT";
+        recognition.interimResults = true;
 
-    outputDiv.textContent = `${fraseCorrente}`;
-    socket.emit("send_message",fraseCorrente)
-  };
+        recognition.onresult = async (event) => {
+            let transcript = "";
+            for (let i = 0; i < event.results.length; i++) {
+                transcript += event.results[i][0].transcript + " ";
+            }
+            parolaCorrenteDiv.textContent = transcript;
 
-  recognition.onend = () => {
-      recognition.start();
-  };
+            let selectedLanguage = languageSelect.value;
+            const translationResponse = await fetch(
+                `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(
+                    transcript
+                )}`
+            );
+            const translationData = await translationResponse.json();
+            const translation = translationData[0][0][0];
 
-  recognition.onerror = (event) => {
-    console.error('Errore di riconoscimento vocale: ', event.error);
-  };
+            fraseCorrente = translation;
+            isTranslating = true;
 
-  recognition.start();
-} else {
-  console.error('Il browser non supporta la Web Speech API.');
-}
+            outputDiv.textContent = `${fraseCorrente}`;
+            socket.emit("send_message", fraseCorrente);
+        };
+
+        recognition.onend = () => {
+            recognition.start();
+        };
+
+        recognition.onerror = (event) => {
+            console.error("Errore di riconoscimento vocale: ", event.error);
+        };
+
+        recognition.start();
+    } else {
+        console.error("Il browser non supporta la Web Speech API.");
+    }
 }, 7000);
+
+document.querySelector("#menu-m").addEventListener("click", () => {
+    document.querySelector("#menu-m").toggleAttribute("toggler");
+});

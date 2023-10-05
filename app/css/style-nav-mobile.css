@@ -51,14 +51,14 @@ men {
     color: #00ff00;
 }
 
-#menu-m:not(:hover) > a:first-of-type,
-#menu-m:hover > a:last-of-type {
+#menu-m:not([toggler]) > a:first-of-type,
+#menu-m[toggler] > a:last-of-type {
     opacity: 1;
     z-index: 5;
 }
 
-#menu-m:not(:hover) > .icon-plus:before,
-#menu-m:hover > .icon-minus:before {
+#menu-m:not([toggler]) > .icon-plus:before,
+#menu-m[toggler] > .icon-minus:before {
     opacity: 1;
     background-color: #393e46;
     color: #ffffff;
@@ -76,7 +76,7 @@ men {
     padding: 13px 1px;
 }
 
-.menu-m-item:hover {
+.menu-m-item[toggler] {
     opacity: 0.5;
     box-shadow: 0 5px 10px black;
 }
@@ -169,22 +169,22 @@ men {
     color: #ffffff;
 }
 
-#menu-m:hover > .menu-m-item:nth-child(6) {
+#menu-m[toggler] > .menu-m-item:nth-child(6) {
     transform: rotate(60deg) translateY(-140px) rotate(300deg);
     transition-delay: 0s;
 }
 
-#menu-m:hover > .menu-m-item:nth-child(5) {
+#menu-m[toggler] > .menu-m-item:nth-child(5) {
     transform: rotate(20deg) translateY(-145px) rotate(-20deg);
     transition-delay: 0.1s;
 }
 
-#menu-m:hover > .menu-m-item:nth-child(3) {
+#menu-m[toggler] > .menu-m-item:nth-child(3) {
     transform: rotate(-20deg) translateY(-145px) rotate(20deg);
     transition-delay: 0.2s;
 }
 
-#menu-m:hover > .menu-m-item:nth-child(4) {
+#menu-m[toggler] > .menu-m-item:nth-child(4) {
     transform: rotate(-60deg) translateY(-140px) rotate(60deg);
     transition-delay: 0.3s;
 }
