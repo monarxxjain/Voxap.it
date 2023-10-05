@@ -1,4 +1,4 @@
-/* men {
+men {
     font-family: "Montserrat", sans-serif;
     text-align: center;
     position: inherit;
@@ -187,4 +187,4 @@
 #menu-m:target > .menu-m-item:nth-child(4) {
     transform: rotate(-60deg) translateY(-140px) rotate(60deg);
     transition-delay: 0.3s;
-} */
+}
