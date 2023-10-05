@@ -16,6 +16,7 @@ const screenShareButt = document.querySelector(".screenshare");
 const fileInput = document.querySelector("#targetFile");
 const previewBackground = document.querySelector(".preview-background");
 const closePreviewDiv = document.querySelector("#preview-close");
+const chatMsgTranslate = document.querySelector(".chat-translate");
 let remoteSid = "";
 const closePreview = () => {
     let filePreview = document.querySelector("#filePreview");
@@ -45,10 +46,86 @@ flag.addEventListener("click", () => {
 const desktopSelect = document.getElementById("languageSelect");
 desktopSelect.addEventListener("change", () => {
     mobileSelect.value = desktopSelect.value;
+    chatMsgTranslate.style.backgroundColor="#fff";
+    translate=null;
+    let translateIntoText;
+    if(window.innerWidth > 944){
+        switch (desktopSelect.value) {
+            case 'en':
+                translateIntoText="English"
+                break;
+            case 'fr':
+                translateIntoText="French"
+                break;
+            case 'de':
+                translateIntoText="German"
+                break;
+            case 'es':
+                translateIntoText="Spanish"
+                break;
+            case 'hi':
+                translateIntoText="Hindi"
+                break;
+            case 'it':
+                translateIntoText="Italian"
+                break;
+        
+            default:
+                break;
+        }
+        document.getElementById("translate-into").innerHTML=`Translate into ${translateIntoText}`
+    }
 });
 mobileSelect.addEventListener("change", () => {
     desktopSelect.value = mobileSelect.value;
+    chatMsgTranslate.style.backgroundColor="#fff";
+    translate=null;
+    let translateIntoText;
+    if(window.innerWidth < 955){
+        switch (desktopSelect.value) {
+            case 'en':
+                translateIntoText="English"
+                break;
+            case 'fr':
+                translateIntoText="French"
+                break;
+            case 'de':
+                translateIntoText="German"
+                break;
+            case 'es':
+                translateIntoText="Spanish"
+                break;
+            case 'hi':
+                translateIntoText="Hindi"
+                break;
+            case 'it':
+                translateIntoText="Italian"
+                break;
+        
+            default:
+                break;
+        }
+        document.getElementById("translate-into").innerHTML=`Translate into ${translateIntoText}`
+    }
 });
+let translate = null;
+chatMsgTranslate.addEventListener("click", ()=>{
+    if(translate!=null){
+        chatMsgTranslate.style.backgroundColor="#fff";
+        translate=null;
+    }
+    else{
+        chatMsgTranslate.style.backgroundColor="#4ecca2cc"
+        document.getElementById("translate-into").innerHTML="Remove Translation"
+        // document.getElementById("translate-into").style.visibility="hidden"
+        if(window.innerWidth < 955){
+            translate = mobileSelect.value;
+        }
+        else{
+            translate = desktopSelect.value;
+        }
+    }
+})
 
 //whiteboard js start
 const whiteboardCont = document.querySelector(".whiteboard-cont");
@@ -822,7 +899,19 @@ messageField.addEventListener("keyup", function (event) {
     }
 });
 
-socket.on("message", (msg, sendername, time) => {
+socket.on("message", async (msg, sendername, time) => {
+    console.log(translate)
+    if(translate!=null){
+        const translationResponse = await fetch(
+            `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${translate}&dt=t&q=${encodeURIComponent(
+                msg
+            )}`
+        );
+        const translationData = await translationResponse.json();
+        const translation = translationData[0][0][0];
+        msg=translation;
+        console.log(msg)
+    }
     chatRoom.scrollTop = chatRoom.scrollHeight;
     chatRoom.innerHTML += `<div class="message ${
         sendername === username ? "sender" : "receiver"

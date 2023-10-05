@@ -1363,3 +1363,33 @@ _::-webkit-full-page-media, _:future, :root .sidebar {
     height: 90%;
 }
   
+
+.chat-translate{
+    padding: 8px 8px 5px;
+    border-radius: 50%;
+    transition: all;
+    position: relative;
+}
+.chat-translate:hover{
+    background-color: #4ecca278;
+    cursor: pointer;
+}
+.chat-translate:active{
+    background-color: #4ecca2cc;
+}
+
+#translate-into{
+    border: 1px solid black;
+    display: none;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    width: max-content;
+    position: absolute;
+    top: -50px;
+    left: 0;
+}
+.chat-translate:hover #translate-into{
+    display: block;
+}
