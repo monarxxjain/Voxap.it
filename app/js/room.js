@@ -1043,3 +1043,8 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
   console.error('Il browser non supporta la Web Speech API.');
 }
 }, 7000);
+
+const btn = document.getElementById("open-menu-m")
+btn.addEventListener("click", ()=>{
+    window.scrollTo(0,0)
+})
