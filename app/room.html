@@ -224,11 +224,9 @@
     
         // Add a click event listener to prevent the default behavior
         openMenuLink.addEventListener("click", function (event) {
-            event.preventDefault(); // Prevent the default behavior (scrolling)
-            // Your code to toggle CSS classes or perform other actions here
-            var menu = document.getElementById("menu-m");
-            menu.classList.toggle("active");
+            document.getElementById("#menu-chat").scrollIntoView(); 
         });
+        
     </script>
     <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>

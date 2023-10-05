@@ -51,14 +51,14 @@ men {
     color: #00ff00;
 }
 
-.active:not(:target) > a:first-of-type,
-.active:target > a:last-of-type {
+#menu-m:not(:target) > a:first-of-type,
+#menu-m:target > a:last-of-type {
     opacity: 1;
     z-index: 5;
 }
 
-.active:not(:target) > .icon-plus:before,
-.active:target > .icon-minus:before {
+#menu-m:not(:target) > .icon-plus:before,
+#menu-m:target > .icon-minus:before {
     opacity: 1;
     background-color: #393e46;
     color: #ffffff;
@@ -169,22 +169,22 @@ men {
     color: #ffffff;
 }
 
-.active:target > .menu-m-item:nth-child(6) {
+#menu-m:target > .menu-m-item:nth-child(6) {
     transform: rotate(60deg) translateY(-140px) rotate(300deg);
     transition-delay: 0s;
 }
 
-.active:target > .menu-m-item:nth-child(5) {
+#menu-m:target > .menu-m-item:nth-child(5) {
     transform: rotate(20deg) translateY(-145px) rotate(-20deg);
     transition-delay: 0.1s;
 }
 
-.active:target > .menu-m-item:nth-child(3) {
+#menu-m:target > .menu-m-item:nth-child(3) {
     transform: rotate(-20deg) translateY(-145px) rotate(20deg);
     transition-delay: 0.2s;
 }
 
-.active:target > .menu-m-item:nth-child(4) {
+#menu-m:target > .menu-m-item:nth-child(4) {
     transform: rotate(-60deg) translateY(-140px) rotate(60deg);
     transition-delay: 0.3s;
 }
