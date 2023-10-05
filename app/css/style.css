@@ -1332,9 +1332,9 @@ navbar .logo {
 }
 
 _::-webkit-full-page-media, _:future, :root #vcont {
-    height: 72%;
+    height: 78%;
 }
 _::-webkit-full-page-media, _:future, :root .sidebar {
-    height: 88%;
+    height: 90%;
 }
   
