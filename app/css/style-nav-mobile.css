@@ -1,4 +1,4 @@
-men {
+/* men {
     font-family: "Montserrat", sans-serif;
     text-align: center;
     position: inherit;
@@ -64,7 +64,7 @@ men {
     color: #ffffff;
 }
 
-/* .menu-m-item {
+.menu-m-item {
     width: 60px;
     height: 60px;
     position: absolute;
