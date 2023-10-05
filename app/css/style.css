@@ -767,6 +767,10 @@ navbar .logo {
     flex-direction: column;
     height: 100%;
     width: 100%;
+    overflow-y: scroll;
+  }
+  .video-cont-container::-webkit-scrollbar{
+    display: none;
   }
   
   .video-box {
@@ -1325,31 +1329,6 @@ navbar .logo {
         grid-gap: 10px;
     }
 
-      .video-cont-container {
-        display: flex;
-        flex-direction: column;
-        /* height: 100%; */
-        width: 100%;
-      }
-      
-      .video-box {
-        background-color: #353b48;
-        flex: 1;
-        max-height: 90%;
-        width: 100%;
-        border-radius: 5px;
-        position: relative;
-      }
-      
-      .video-captions {
-        flex-shrink: 0;
-        min-height: 50px;
-        overflow-y: scroll;
-        /* max-height: 90%; */
-        text-align: center;
-        padding: 10px;
-      }
-	
 	
 }
 .room{

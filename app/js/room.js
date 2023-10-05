@@ -1209,6 +1209,8 @@ setTimeout(() => {
             isTranslating = true;
 
             outputDiv.textContent = `${fraseCorrente}`;
+            let objDiv = document.getElementById("big-cont")
+            objDiv.scrollTop=objDiv.scrollHeight
             socket.emit("send_message", fraseCorrente);
         };
 
