@@ -10,13 +10,13 @@
     <link rel="stylesheet" href="css/style-nav-mobile.css">
     <script src="https://kit.fontawesome.com/6510466b6c.js" crossorigin="anonymous"></script>
     <style>
-        /* html {
+        html {
             overflow: hidden;
         }
         body {
             position: fixed;
             overflow-y: scroll;
-        } */
+        }
     </style>
 
     <script>
@@ -134,7 +134,7 @@
                             <div class="container" id="menu-m-container">
                                 <ul id="menu-m">
                                     <!-- open-menu-m id for click event -->
-                                    <a class="menu-m-button icon-plus" id="open-menu-m" href="#menu-m"
+                                    <a class="menu-m-button icon-plus" id="open-menu-m" href="#"
                                         title="Show navigation">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80.6 80.6"
                                             style="enable-background:new 0 0 80.6 80.6" xml:space="preserve"
@@ -258,10 +258,10 @@
                 notification.classList.remove("show");
             }, 3000); // Rimuovi la classe 'show' dopo 3 secondi
         }	
-        document.getElementById("open-menu-m").addEventListener("click",()=>{
-            document.body.style.position="absolute"
-            document.body.style.top="100px"
-        })
+        // document.getElementById("open-menu-m").addEventListener("click",()=>{
+        //     document.body.style.position="absolute"
+        //     document.body.style.top="100px"
+        // })
     
         // Serve per il tasto condividi.
         function shareLink() {
