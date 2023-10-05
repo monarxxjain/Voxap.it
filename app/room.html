@@ -226,6 +226,8 @@
         openMenuLink.addEventListener("click", function (event) {
             event.preventDefault(); // Prevent the default behavior (scrolling)
             // Your code to toggle CSS classes or perform other actions here
+            var menu = document.getElementById("menu-m");
+            menu.classList.toggle("active");
         });
     </script>
     <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
