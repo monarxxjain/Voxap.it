@@ -75,6 +75,17 @@ desktopSelect.addEventListener("change", () => {
         }
         document.getElementById("translate-into").innerHTML=`Translate into ${translateIntoText}`
     }
+    const allMsgs = document.querySelectorAll(".content");
+    allMsgs.forEach(async (message)=>{
+        const translationResponse = await fetch(
+        `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(
+                message.innerHTML
+            )}`
+        );
+        const translationData = await translationResponse.json();
+        const translation = translationData[0][0][0];
+        message.innerHTML = translation;
+    })
 });
 mobileSelect.addEventListener("change", () => {
     desktopSelect.value = mobileSelect.value;
@@ -107,12 +118,35 @@ mobileSelect.addEventListener("change", () => {
         }
         document.getElementById("translate-into").innerHTML=`Translate into ${translateIntoText}`
     }
+    const allMsgs = document.querySelectorAll(".content");
+    allMsgs.forEach(async (message)=>{
+        const translationResponse = await fetch(
+        `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(
+                message.innerHTML
+            )}`
+        );
+        const translationData = await translationResponse.json();
+        const translation = translationData[0][0][0];
+        message.innerHTML = translation;
+    })
 });
 let translate = null;
 chatMsgTranslate.addEventListener("click", ()=>{
+    const allMsgs = document.querySelectorAll(".content");
+    // allMsgs.forEach((elem)=>{console.log(elem.innerHTML)})
     if(translate!=null){
         chatMsgTranslate.style.backgroundColor="#fff";
         translate=null;
+        allMsgs.forEach(async (message)=>{
+            const translationResponse = await fetch(
+            `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(
+                    message.innerHTML
+                )}`
+            );
+            const translationData = await translationResponse.json();
+            const translation = translationData[0][0][0];
+            message.innerHTML = translation;
+        })
     }
     else{
         chatMsgTranslate.style.backgroundColor="#4ecca2cc"
@@ -124,7 +158,18 @@ chatMsgTranslate.addEventListener("click", ()=>{
         else{
             translate = desktopSelect.value;
         }
+        allMsgs.forEach(async (message)=>{
+            const translationResponse = await fetch(
+            `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${translate}&dt=t&q=${encodeURIComponent(
+                    message.innerHTML
+                )}`
+            );
+            const translationData = await translationResponse.json();
+            const translation = translationData[0][0][0];
+            message.innerHTML = translation;
+        })
     }
+    
 })
 
 //whiteboard js start
@@ -622,7 +667,7 @@ const createChannel = (peer, sid) => {
             console.log(e);
         }
     };
-    console.log(sid);
+    // console.log(sid);
     dataChannels[sid] = channel;
 };
 
@@ -660,7 +705,7 @@ const createConnection = (connections, sid, isHandleVideoOffer) => {
                 name.innerHTML = `${cName[sid]}`;
                 vidContContainer.id = sid;
                 remoteSid = sid;
-                console.log(remoteSid);
+                // console.log(remoteSid);
                 muteIcon.id = `mute${sid}`;
                 videoOff.id = `vidoff${sid}`;
                 muteIcon.innerHTML = `<i class="fas fa-microphone-slash"></i>`;
@@ -900,7 +945,7 @@ messageField.addEventListener("keyup", function (event) {
 });
 
 socket.on("message", async (msg, sendername, time) => {
-    console.log(translate)
+    // console.log(translate)
     if(translate!=null){
         const translationResponse = await fetch(
             `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${translate}&dt=t&q=${encodeURIComponent(
@@ -910,7 +955,7 @@ socket.on("message", async (msg, sendername, time) => {
         const translationData = await translationResponse.json();
         const translation = translationData[0][0][0];
         msg=translation;
-        console.log(msg)
+        // console.log(msg)
     }
     chatRoom.scrollTop = chatRoom.scrollHeight;
     chatRoom.innerHTML += `<div class="message ${
@@ -1125,7 +1170,7 @@ fileInput.addEventListener("change", (e) => {
 
 setTimeout(() => {
     let siteWidth = window.innerWidth;
-    console.log(siteWidth);
+    // console.log(siteWidth);
     let languageSelect;
     if (siteWidth > 954) {
         languageSelect = document.getElementById("languageSelect");
