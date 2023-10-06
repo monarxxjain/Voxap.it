@@ -1252,7 +1252,13 @@ setTimeout(() => {
             outputDiv.textContent = `${fraseCorrente}`;
     
             // Set a new timeout to clear the captions div after 10 seconds
+
             timeoutId = setTimeout(() => {
+                recognition.stop()
+                recognition.start()
+                translationData=""
+                translation=""
+                translationResponse=""
                 parolaCorrenteDiv.textContent = "";
                 outputDiv.textContent=""
             }, 10000);
