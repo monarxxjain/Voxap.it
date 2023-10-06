@@ -75,16 +75,13 @@ desktopSelect.addEventListener("change", () => {
         }
         document.getElementById("translate-into").innerHTML=`Translate into ${translateIntoText}`
     }
-    const allMsgs = document.querySelectorAll(".content");
-    allMsgs.forEach(async (message)=>{
-        const translationResponse = await fetch(
-        `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(
-                message.innerHTML
-            )}`
-        );
-        const translationData = await translationResponse.json();
-        const translation = translationData[0][0][0];
-        message.innerHTML = translation;
+    const translatedDiv = document.querySelectorAll(".translated-content");
+    translatedDiv.forEach((div)=>{
+        div.style.display="none"
+    })
+    const originalDiv = document.querySelectorAll(".content");
+    originalDiv.forEach((div)=>{
+        div.style.display="block"
     })
 });
 mobileSelect.addEventListener("change", () => {
@@ -118,40 +115,57 @@ mobileSelect.addEventListener("change", () => {
         }
         document.getElementById("translate-into").innerHTML=`Translate into ${translateIntoText}`
     }
-    const allMsgs = document.querySelectorAll(".content");
-    allMsgs.forEach(async (message)=>{
-        const translationResponse = await fetch(
-        `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(
-                message.innerHTML
-            )}`
-        );
-        const translationData = await translationResponse.json();
-        const translation = translationData[0][0][0];
-        message.innerHTML = translation;
-    })
+    document.getElementsByClassName("translated-content").style.display="hidden"
+    document.getElementsByClassName("content").style.display="block"
 });
+
+
 let translate = null;
 chatMsgTranslate.addEventListener("click", ()=>{
-    const allMsgs = document.querySelectorAll(".content");
-    // allMsgs.forEach((elem)=>{console.log(elem.innerHTML)})
+    const allMsgs = document.querySelectorAll(".message");
     if(translate!=null){
         chatMsgTranslate.style.backgroundColor="#fff";
         translate=null;
-        allMsgs.forEach(async (message)=>{
-            const translationResponse = await fetch(
-            `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(
-                    message.innerHTML
-                )}`
-            );
-            const translationData = await translationResponse.json();
-            const translation = translationData[0][0][0];
-            message.innerHTML = translation;
+        let translateIntoText;
+        switch (desktopSelect.value) {
+            case 'en':
+                translateIntoText="English"
+                break;
+            case 'fr':
+                translateIntoText="French"
+                break;
+            case 'de':
+                translateIntoText="German"
+                break;
+            case 'es':
+                translateIntoText="Spanish"
+                break;
+            case 'hi':
+                translateIntoText="Hindi"
+                break;
+            case 'it':
+                translateIntoText="Italian"
+                break;
+        
+            default:
+                break;
+        }
+        document.getElementById("translate-into").innerHTML=`Translate into ${translateIntoText}`
+
+        const translatedDiv = document.querySelectorAll(".translated-content");
+        translatedDiv.forEach((div)=>{
+            console.log(div.innerHTML)
+            div.style.display="none"
+        })
+        const originalDiv = document.querySelectorAll(".content");
+        originalDiv.forEach((div)=>{
+            console.log(div.innerHTML)
+            div.style.display="block"
         })
     }
     else{
         chatMsgTranslate.style.backgroundColor="#4ecca2cc"
         document.getElementById("translate-into").innerHTML="Remove Translation"
-        // document.getElementById("translate-into").style.visibility="hidden"
         if(window.innerWidth < 955){
             translate = mobileSelect.value;
         }
@@ -160,13 +174,15 @@ chatMsgTranslate.addEventListener("click", ()=>{
         }
         allMsgs.forEach(async (message)=>{
             const translationResponse = await fetch(
-            `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${translate}&dt=t&q=${encodeURIComponent(
-                    message.innerHTML
+                `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${translate}&dt=t&q=${encodeURIComponent(
+                    message.querySelector("#content").innerHTML
                 )}`
             );
             const translationData = await translationResponse.json();
             const translation = translationData[0][0][0];
-            message.innerHTML = translation;
+            message.querySelector("#content").style.display="none"
+            message.querySelector("#translated-content").innerHTML = translation; 
+            message.querySelector("#translated-content").style.display = "block"; 
         })
     }
     
@@ -946,6 +962,7 @@ messageField.addEventListener("keyup", function (event) {
 
 socket.on("message", async (msg, sendername, time) => {
     // console.log(translate)
+    let translatedMsg = null;
     if(translate!=null){
         const translationResponse = await fetch(
             `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${translate}&dt=t&q=${encodeURIComponent(
@@ -954,21 +971,43 @@ socket.on("message", async (msg, sendername, time) => {
         );
         const translationData = await translationResponse.json();
         const translation = translationData[0][0][0];
-        msg=translation;
+        translatedMsg = translation;
         // console.log(msg)
+        chatRoom.innerHTML += `<div class="message ${
+            sendername === username ? "sender" : "receiver"
+        }">
+        <div class="info">
+            <div class="username">${sendername}</div>
+            <div class="time">${time}</div>
+        </div>
+        <div id="content" class="content" style="display: none;">
+            ${msg}
+        </div>
+        <div id="translated-content" class="translated-content">
+            ${translatedMsg}
+        </div>
+        
+        </div>`;
+    }
+    else{
+        chatRoom.innerHTML += `<div class="message ${
+            sendername === username ? "sender" : "receiver"
+        }">
+        <div class="info">
+            <div class="username">${sendername}</div>
+            <div class="time">${time}</div>
+        </div>
+        <div id="content" class="content">
+            ${msg}
+        </div>
+        <div id="translated-content" class="translated-content" style="display: none;">
+            ${translatedMsg}
+        </div>
+        
+        </div>`;
     }
     chatRoom.scrollTop = chatRoom.scrollHeight;
-    chatRoom.innerHTML += `<div class="message ${
-        sendername === username ? "sender" : "receiver"
-    }">
-    <div class="info">
-        <div class="username">${sendername}</div>
-        <div class="time">${time}</div>
-    </div>
-    <div class="content">
-        ${msg}
-    </div>
-</div>`;
+    
 });
 
 let videoButtons = document.getElementsByClassName("videoButton");
