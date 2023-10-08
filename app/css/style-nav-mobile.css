@@ -123,10 +123,11 @@ men {
     transition: 0.5s;
     padding: 15px 0px 0px 0px;
 }
-.menu-m-item .board-icon:hover {
+.screenshare-item{
+    background-color: #fff;
+}
+.screenshare-item:hover{
     cursor: pointer;
-    background-color: #393e46;
-    color: #ffffff;
 }
 
 .menu-m-item .audio {
