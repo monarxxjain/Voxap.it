@@ -1138,8 +1138,8 @@ socket.on("answer_message", async ( msg, sid ) => {
 
         const translationData = await translationResponse.json();
         const translation = translationData[0][0][0];
-        document.querySelector(`#${sid} .custom-style-1`).textContent = msg;
-        document.querySelector(`#${sid} .custom-style-2`).textContent =
+        document.querySelector(`#${sid} .video-captions .custom-style-1`).textContent = msg;
+        document.querySelector(`#${sid} .video-captions .custom-style-2`).textContent =
             translation;
     }
 });
@@ -1277,6 +1277,7 @@ setTimeout(() => {
                 transcript += event.results[i][0].transcript + " ";
             }
             parolaCorrenteDiv.textContent = transcript;
+            
             socket.emit("send_message", transcript);
 
             let selectedLanguage = languageSelect.value;

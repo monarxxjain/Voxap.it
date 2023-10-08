@@ -94,7 +94,7 @@ io.on('connect', socket => {
 
     socket.on("send_message",(msg)=>{
         socket.to(socketroom[socket.id]).emit("answer_message",msg,socket.id)
-        console.log(socketroom[socket.id])
+        console.log("in "+socketroom[socket.id])
     })
 
     socket.on('disconnect', () => {
