@@ -1143,7 +1143,7 @@ socket.on("answer_message", async ( msg, sid ) => {
         setTimeout(() => {
             document.querySelector(`#${sid} .video-captions .custom-style-1`).textContent = "";
             document.querySelector(`#${sid} .video-captions .custom-style-2`).textContent = "";
-        }, 2000);
+        }, 5000);
     }
 });
 
