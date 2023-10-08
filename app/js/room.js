@@ -1124,7 +1124,7 @@ for (let i = 0; i < audios.length; i++) {
     });
 }
 
-socket.on("answer_message", async (msg) => {
+socket.on("answer_message", async ({msg,sid}) => {
     if (remoteSid !== "") {
         let selectedLanguage = languageSelect.value;
         const translationResponse = await fetch(
@@ -1134,9 +1134,9 @@ socket.on("answer_message", async (msg) => {
         );
         const translationData = await translationResponse.json();
         const translation = translationData[0][0][0];
-        document.querySelector(`#${remoteSid} .custom-style-1`).textContent =
+        document.querySelector(`#${sid} .custom-style-1`).textContent =
             msg;
-        document.querySelector(`#${remoteSid} .custom-style-2`).textContent =
+        document.querySelector(`#${sid} .custom-style-2`).textContent =
             translation;
     }
 });
