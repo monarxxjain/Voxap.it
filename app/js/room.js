@@ -29,31 +29,29 @@ closePreviewDiv.addEventListener("click", () => {
     closePreview();
 });
 
+let visible;
+if (window.innerWidth <= 768) {
+    visible = false;
+    let rightCont = document.getElementsByClassName("right-cont")[0];
+    rightCont.classList.add("right-none");
+} else {
+    visible = true;
+}
 
-        let visible;
-        if (window.innerWidth <= 768) {
-            visible = false;
-            let rightCont = document.getElementsByClassName("right-cont")[0];
-            rightCont.classList.add("right-none");
-        } else {
-            visible = true;
-        }
-
-        
-        function toggleSidebar() {
-            let rightCont = document.getElementsByClassName("right-cont")[0];
-            let leftCont = document.getElementsByClassName("left-cont")[0];
-            if (visible) {
-                document.getElementById("chat-notify").style.display="none"
-                rightCont.classList.add("right-none");
-                leftCont.classList.add("left-full-width");
-            } else {
-                document.getElementById("chat-notify").style.display="none"
-                rightCont.classList.remove("right-none");
-                leftCont.classList.remove("left-full-width");
-            }
-            visible = !visible;
-        }
+function toggleSidebar() {
+    let rightCont = document.getElementsByClassName("right-cont")[0];
+    let leftCont = document.getElementsByClassName("left-cont")[0];
+    if (visible) {
+        document.getElementById("chat-notify").style.display = "none";
+        rightCont.classList.add("right-none");
+        leftCont.classList.add("left-full-width");
+    } else {
+        document.getElementById("chat-notify").style.display = "none";
+        rightCont.classList.remove("right-none");
+        leftCont.classList.remove("left-full-width");
+    }
+    visible = !visible;
+}
 
 //Mobile select
 const flag = document.getElementById("selLangMobile");
@@ -72,133 +70,138 @@ flag.addEventListener("click", () => {
 const desktopSelect = document.getElementById("languageSelect");
 desktopSelect.addEventListener("change", () => {
     mobileSelect.value = desktopSelect.value;
-    chatMsgTranslate.style.backgroundColor="#fff";
-    translate=null;
+    chatMsgTranslate.style.backgroundColor = "#fff";
+    translate = null;
     let translateIntoText;
-    if(window.innerWidth > 944){
+    if (window.innerWidth > 944) {
         switch (desktopSelect.value) {
-            case 'en':
-                translateIntoText="English"
+            case "en":
+                translateIntoText = "English";
                 break;
-            case 'fr':
-                translateIntoText="French"
+            case "fr":
+                translateIntoText = "French";
                 break;
-            case 'de':
-                translateIntoText="German"
+            case "de":
+                translateIntoText = "German";
                 break;
-            case 'es':
-                translateIntoText="Spanish"
+            case "es":
+                translateIntoText = "Spanish";
                 break;
-            case 'hi':
-                translateIntoText="Hindi"
+            case "hi":
+                translateIntoText = "Hindi";
                 break;
-            case 'it':
-                translateIntoText="Italian"
+            case "it":
+                translateIntoText = "Italian";
                 break;
-        
+
             default:
                 break;
         }
-        document.getElementById("translate-into").innerHTML=`Translate into ${translateIntoText}`
+        document.getElementById(
+            "translate-into"
+        ).innerHTML = `Translate into ${translateIntoText}`;
     }
     const translatedDiv = document.querySelectorAll(".translated-content");
-    translatedDiv.forEach((div)=>{
-        div.style.display="none"
-    })
+    translatedDiv.forEach((div) => {
+        div.style.display = "none";
+    });
     const originalDiv = document.querySelectorAll(".content");
-    originalDiv.forEach((div)=>{
-        div.style.display="block"
-    })
+    originalDiv.forEach((div) => {
+        div.style.display = "block";
+    });
 });
 mobileSelect.addEventListener("change", () => {
     desktopSelect.value = mobileSelect.value;
-    chatMsgTranslate.style.backgroundColor="#fff";
-    translate=null;
+    chatMsgTranslate.style.backgroundColor = "#fff";
+    translate = null;
     let translateIntoText;
-    if(window.innerWidth < 955){
+    if (window.innerWidth < 955) {
         switch (desktopSelect.value) {
-            case 'en':
-                translateIntoText="English"
+            case "en":
+                translateIntoText = "English";
                 break;
-            case 'fr':
-                translateIntoText="French"
+            case "fr":
+                translateIntoText = "French";
                 break;
-            case 'de':
-                translateIntoText="German"
+            case "de":
+                translateIntoText = "German";
                 break;
-            case 'es':
-                translateIntoText="Spanish"
+            case "es":
+                translateIntoText = "Spanish";
                 break;
-            case 'hi':
-                translateIntoText="Hindi"
+            case "hi":
+                translateIntoText = "Hindi";
                 break;
-            case 'it':
-                translateIntoText="Italian"
+            case "it":
+                translateIntoText = "Italian";
                 break;
-        
+
             default:
                 break;
         }
-        document.getElementById("translate-into").innerHTML=`Translate into ${translateIntoText}`
+        document.getElementById(
+            "translate-into"
+        ).innerHTML = `Translate into ${translateIntoText}`;
     }
-    document.getElementsByClassName("translated-content").style.display="hidden"
-    document.getElementsByClassName("content").style.display="block"
+    document.getElementsByClassName("translated-content").style.display =
+        "hidden";
+    document.getElementsByClassName("content").style.display = "block";
 });
 
-
 let translate = null;
-chatMsgTranslate.addEventListener("click", ()=>{
+chatMsgTranslate.addEventListener("click", () => {
     const allMsgs = document.querySelectorAll(".message");
-    if(translate!=null){
-        chatMsgTranslate.style.backgroundColor="#fff";
-        translate=null;
+    if (translate != null) {
+        chatMsgTranslate.style.backgroundColor = "#fff";
+        translate = null;
         let translateIntoText;
         switch (desktopSelect.value) {
-            case 'en':
-                translateIntoText="English"
+            case "en":
+                translateIntoText = "English";
                 break;
-            case 'fr':
-                translateIntoText="French"
+            case "fr":
+                translateIntoText = "French";
                 break;
-            case 'de':
-                translateIntoText="German"
+            case "de":
+                translateIntoText = "German";
                 break;
-            case 'es':
-                translateIntoText="Spanish"
+            case "es":
+                translateIntoText = "Spanish";
                 break;
-            case 'hi':
-                translateIntoText="Hindi"
+            case "hi":
+                translateIntoText = "Hindi";
                 break;
-            case 'it':
-                translateIntoText="Italian"
+            case "it":
+                translateIntoText = "Italian";
                 break;
-        
+
             default:
                 break;
         }
-        document.getElementById("translate-into").innerHTML=`Translate into ${translateIntoText}`
+        document.getElementById(
+            "translate-into"
+        ).innerHTML = `Translate into ${translateIntoText}`;
 
         const translatedDiv = document.querySelectorAll(".translated-content");
-        translatedDiv.forEach((div)=>{
-            console.log(div.innerHTML)
-            div.style.display="none"
-        })
+        translatedDiv.forEach((div) => {
+            console.log(div.innerHTML);
+            div.style.display = "none";
+        });
         const originalDiv = document.querySelectorAll(".content");
-        originalDiv.forEach((div)=>{
-            console.log(div.innerHTML)
-            div.style.display="block"
-        })
-    }
-    else{
-        chatMsgTranslate.style.backgroundColor="#4ecca2cc"
-        document.getElementById("translate-into").innerHTML="Remove Translation"
-        if(window.innerWidth < 955){
+        originalDiv.forEach((div) => {
+            console.log(div.innerHTML);
+            div.style.display = "block";
+        });
+    } else {
+        chatMsgTranslate.style.backgroundColor = "#4ecca2cc";
+        document.getElementById("translate-into").innerHTML =
+            "Remove Translation";
+        if (window.innerWidth < 955) {
             translate = mobileSelect.value;
-        }
-        else{
+        } else {
             translate = desktopSelect.value;
         }
-        allMsgs.forEach(async (message)=>{
+        allMsgs.forEach(async (message) => {
             const translationResponse = await fetch(
                 `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${translate}&dt=t&q=${encodeURIComponent(
                     message.querySelector("#content").innerHTML
@@ -206,13 +209,14 @@ chatMsgTranslate.addEventListener("click", ()=>{
             );
             const translationData = await translationResponse.json();
             const translation = translationData[0][0][0];
-            message.querySelector("#content").style.display="none"
-            message.querySelector("#translated-content").innerHTML = translation; 
-            message.querySelector("#translated-content").style.display = "block"; 
-        })
+            message.querySelector("#content").style.display = "none";
+            message.querySelector("#translated-content").innerHTML =
+                translation;
+            message.querySelector("#translated-content").style.display =
+                "block";
+        });
     }
-    
-})
+});
 
 //whiteboard js start
 const whiteboardCont = document.querySelector(".whiteboard-cont");
@@ -871,7 +875,7 @@ function handleNewIceCandidate(candidate, sid) {
     console.log("new candidate recieved");
     const gatheredIceCandidates = [];
     var newcandidate = new RTCIceCandidate(candidate);
-    if(gatheredIceCandidates.includes(newcandidate))return;
+    if (gatheredIceCandidates.includes(newcandidate)) return;
     gatheredIceCandidates.push(newcandidate);
 
     connections[sid].addIceCandidate(newcandidate).catch(reportError);
@@ -999,7 +1003,7 @@ messageField.addEventListener("keyup", function (event) {
 socket.on("message", async (msg, sendername, time) => {
     // console.log(translate)
     let translatedMsg = null;
-    if(translate!=null){
+    if (translate != null) {
         const translationResponse = await fetch(
             `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${translate}&dt=t&q=${encodeURIComponent(
                 msg
@@ -1023,8 +1027,7 @@ socket.on("message", async (msg, sendername, time) => {
         </div>
         
         </div>`;
-    }
-    else{
+    } else {
         chatRoom.innerHTML += `<div class="message ${
             sendername === username ? "sender" : "receiver"
         }">
@@ -1042,8 +1045,8 @@ socket.on("message", async (msg, sendername, time) => {
         </div>`;
     }
     chatRoom.scrollTop = chatRoom.scrollHeight;
-    if(sendername!==username && visible==false){
-        document.getElementById("chat-notify").style.display="block"
+    if (sendername !== username && visible == false) {
+        document.getElementById("chat-notify").style.display = "block";
     }
 });
 
@@ -1124,18 +1127,18 @@ for (let i = 0; i < audios.length; i++) {
     });
 }
 
-socket.on("answer_message", async ({msg,sid}) => {
-    if (remoteSid !== "") {
+socket.on("answer_message", async ({ msg, sid }) => {
+    if (sid !== "") {
         let selectedLanguage = languageSelect.value;
         const translationResponse = await fetch(
             `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(
                 msg
             )}`
         );
+
         const translationData = await translationResponse.json();
         const translation = translationData[0][0][0];
-        document.querySelector(`#${sid} .custom-style-1`).textContent =
-            msg;
+        document.querySelector(`#${sid} .custom-style-1`).textContent = msg;
         document.querySelector(`#${sid} .custom-style-2`).textContent =
             translation;
     }
@@ -1259,22 +1262,23 @@ setTimeout(() => {
     let isTranslating = false;
 
     if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
-        let recognition = new (window.webkitSpeechRecognition || window.SpeechRecognition)();
+        let recognition = new (window.webkitSpeechRecognition ||
+            window.SpeechRecognition)();
         recognition.lang = "it-IT";
         recognition.interimResults = true;
-    
+
         let timeoutId;
-    
+
         recognition.onresult = async (event) => {
             clearTimeout(timeoutId); // Clear the previous timeout
-    
+
             let transcript = "";
             for (let i = 0; i < event.results.length; i++) {
                 transcript += event.results[i][0].transcript + " ";
             }
             parolaCorrenteDiv.textContent = transcript;
             socket.emit("send_message", transcript);
-    
+
             let selectedLanguage = languageSelect.value;
             const translationResponse = await fetch(
                 `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(
@@ -1283,43 +1287,42 @@ setTimeout(() => {
             );
             const translationData = await translationResponse.json();
             const translation = translationData[0][0][0];
-    
+
             fraseCorrente = translation;
             isTranslating = true;
-    
+
             outputDiv.textContent = `${fraseCorrente}`;
-    
+
             // Set a new timeout to clear the captions div after 10 seconds
 
             timeoutId = setTimeout(() => {
-                recognition.stop()
-                recognition.start()
-                translationData=""
-                translation=""
-                translationResponse=""
+                recognition.stop();
+                recognition.start();
+                translationData = "";
+                translation = "";
+                translationResponse = "";
                 parolaCorrenteDiv.textContent = "";
-                outputDiv.textContent=""
+                outputDiv.textContent = "";
             }, 10000);
-    
-            let objDiv = document.getElementById("big-cont")
+
+            let objDiv = document.getElementById("big-cont");
             objDiv.scrollTop = objDiv.scrollHeight;
         };
-    
+
         recognition.onend = () => {
             setTimeout(() => {
-                outputDiv.textContent=""
-                parolaCorrenteDiv.textContent=""
+                outputDiv.textContent = "";
+                parolaCorrenteDiv.textContent = "";
             }, 2000);
             recognition.start();
         };
-    
+
         recognition.onerror = (event) => {
             console.error("Errore di riconoscimento vocale: ", event.error);
         };
-    
+
         recognition.start();
-    }
-     else {
+    } else {
         console.error("Il browser non supporta la Web Speech API.");
     }
 }, 7000);
