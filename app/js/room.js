@@ -30,7 +30,7 @@ closePreviewDiv.addEventListener("click", () => {
 });
 
 let visible;
-if (window.innerWidth <= 768) {
+if (window.innerWidth <= 1430) {
     visible = false;
     let rightCont = document.getElementsByClassName("right-cont")[0];
     rightCont.classList.add("right-none");
