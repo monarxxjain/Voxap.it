@@ -1454,3 +1454,6 @@ _::-webkit-full-page-media, _:future, :root .sidebar {
 .message{
     max-width: 400px;
 }
+.file{
+    width: 100%;
+}

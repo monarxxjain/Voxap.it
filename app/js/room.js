@@ -615,6 +615,7 @@ const createFileMessage = (
     filesizeDiv.innerText = getFileSize(filesize);
 
     message.classList.add("message");
+    message.classList.add("file");
     info.classList.add("info");
     userNameDiv.classList.add("username");
     time.classList.add("time");
