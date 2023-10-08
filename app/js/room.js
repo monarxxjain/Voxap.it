@@ -1296,6 +1296,10 @@ setTimeout(() => {
         };
     
         recognition.onend = () => {
+            setTimeout(() => {
+                outputDiv.textContent=""
+                parolaCorrenteDiv.textContent=""
+            }, 2000);
             recognition.start();
         };
     
