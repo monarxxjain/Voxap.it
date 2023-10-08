@@ -1127,7 +1127,7 @@ for (let i = 0; i < audios.length; i++) {
     });
 }
 
-socket.on("answer_message", async ({ msg, sid }) => {
+socket.on("answer_message", async ( msg, sid ) => {
     if (sid !== "") {
         let selectedLanguage = languageSelect.value;
         const translationResponse = await fetch(
