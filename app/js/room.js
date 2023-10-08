@@ -1263,6 +1263,7 @@ setTimeout(() => {
                 transcript += event.results[i][0].transcript + " ";
             }
             parolaCorrenteDiv.textContent = transcript;
+            socket.emit("send_message", transcript);
     
             let selectedLanguage = languageSelect.value;
             const translationResponse = await fetch(
@@ -1292,7 +1293,6 @@ setTimeout(() => {
     
             let objDiv = document.getElementById("big-cont")
             objDiv.scrollTop = objDiv.scrollHeight;
-            socket.emit("send_message", fraseCorrente);
         };
     
         recognition.onend = () => {
