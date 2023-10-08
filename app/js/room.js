@@ -29,6 +29,32 @@ closePreviewDiv.addEventListener("click", () => {
     closePreview();
 });
 
+
+        let visible;
+        if (window.innerWidth <= 768) {
+            visible = false;
+            let rightCont = document.getElementsByClassName("right-cont")[0];
+            rightCont.classList.add("right-none");
+        } else {
+            visible = true;
+        }
+
+        
+        function toggleSidebar() {
+            let rightCont = document.getElementsByClassName("right-cont")[0];
+            let leftCont = document.getElementsByClassName("left-cont")[0];
+            if (visible) {
+                document.getElementById("chat-notify").style.display="none"
+                rightCont.classList.add("right-none");
+                leftCont.classList.add("left-full-width");
+            } else {
+                document.getElementById("chat-notify").style.display="none"
+                rightCont.classList.remove("right-none");
+                leftCont.classList.remove("left-full-width");
+            }
+            visible = !visible;
+        }
+
 //Mobile select
 const flag = document.getElementById("selLangMobile");
 const mobileSelect = document.getElementById("languageSelectMobile");
@@ -1007,7 +1033,9 @@ socket.on("message", async (msg, sendername, time) => {
         </div>`;
     }
     chatRoom.scrollTop = chatRoom.scrollHeight;
-    
+    if(sendername!==username && visible==false){
+        document.getElementById("chat-notify").style.display="block"
+    }
 });
 
 let videoButtons = document.getElementsByClassName("videoButton");

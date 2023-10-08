@@ -47,7 +47,14 @@
         <div class="left-cont">
             <div id="menu-chat">
                 <button class="openbtn" onclick="toggleSidebar()" id="chatBtn">
-				<i class="fas fa-comment-alt mr-1"></i>
+                    <!-- <span class="material-symbols-outlined" style="color: red;">
+                        notifications
+                        </span> -->
+                        <div style="position: relative;">
+                            <div id="chat-notify" style="width: 10px; height: 10px; border-radius: 50%; background-color: red; position: absolute; right: 5px; top: -5px; display: none;"></div>
+                            <i class="fas fa-comment-alt mr-1"></i>
+
+                        </div>
 				</button>
 				
                 <div class="video-cont-single" id="vcont">
@@ -244,28 +251,7 @@
 
     <script>
 		// apre e chiude la sidebar latera. Se il monitor è meno di 768px la tiene chiusa
-        let visible;
-        if (window.innerWidth <= 768) {
-            visible = false;
-            let rightCont = document.getElementsByClassName("right-cont")[0];
-            rightCont.classList.add("right-none");
-        } else {
-            visible = true;
-        }
-
         
-        function toggleSidebar() {
-            let rightCont = document.getElementsByClassName("right-cont")[0];
-            let leftCont = document.getElementsByClassName("left-cont")[0];
-            if (visible) {
-                rightCont.classList.add("right-none");
-                leftCont.classList.add("left-full-width");
-            } else {
-                rightCont.classList.remove("right-none");
-                leftCont.classList.remove("left-full-width");
-            }
-            visible = !visible;
-        }
 		
         // Funzione per mostrare la notifica
         function showNotification() {
