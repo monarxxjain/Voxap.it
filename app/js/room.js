@@ -875,10 +875,10 @@ function handleNewIceCandidate(candidate, sid) {
     gatheredIceCandidates.push(newcandidate);
 
     connections[sid].addIceCandidate(newcandidate).catch(reportError);
-    connections[socket.id].onicecandidate = function (event) {
+    connections[sid].onicecandidate = function (event) {
         if (event.candidate) {
             console.log("icecandidate fired");
-            socket.emit("new icecandidate", event.candidate, socket.id);
+            socket.emit("new icecandidate", event.candidate, sid);
         }
     };
 }
