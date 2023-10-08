@@ -998,7 +998,6 @@ socket.on("message", async (msg, sendername, time) => {
         const translationData = await translationResponse.json();
         const translation = translationData[0][0][0];
         translatedMsg = translation;
-        // console.log(msg)
         chatRoom.innerHTML += `<div class="message ${
             sendername === username ? "sender" : "receiver"
         }">
