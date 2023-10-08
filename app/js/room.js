@@ -869,9 +869,18 @@ function handleVideoOffer(offer, sid, cname, micinf, vidinf) {
 
 function handleNewIceCandidate(candidate, sid) {
     console.log("new candidate recieved");
+    const gatheredIceCandidates = [];
     var newcandidate = new RTCIceCandidate(candidate);
+    if(gatheredIceCandidates.includes(newcandidate))return;
+    gatheredIceCandidates.push(newcandidate);
 
     connections[sid].addIceCandidate(newcandidate).catch(reportError);
+    connections[socket.id].onicecandidate = function (event) {
+        if (event.candidate) {
+            console.log("icecandidate fired");
+            socket.emit("new icecandidate", event.candidate, socket.id);
+        }
+    };
 }
 
 function handleVideoAnswer(answer, sid) {
