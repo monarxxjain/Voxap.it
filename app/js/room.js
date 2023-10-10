@@ -356,7 +356,12 @@ mymuteicon.style.visibility = "hidden";
 let myvideooff = document.querySelector("#myvideooff");
 myvideooff.style.visibility = "hidden";
 
-const configuration = { iceServers: [{ urls: "stun:stun.stunprotocol.org" }] };
+const configuration = {};
+(async() => {
+  const response = await fetch("https://bhoomicam.metered.live/api/v1/turn/credentials?apiKey=6de6a6bc7a78de25e345f031a0a89d59fc24");
+  const iceServers = await response.json();
+  configuration.iceServers = iceServers.concat([{ urls: "stun:stun.stunprotocol.org" }])
+})();
 
 const mediaConstraints = { video: true, audio: true };
 
