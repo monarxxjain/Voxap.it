@@ -1319,9 +1319,18 @@ setTimeout(() => {
         };
 
         recognition.onend = () => {
+            let opacity = 0; 
+            outputDiv.style.transition = "opacity 0.5s";  // Set the transition duration
+            parolaCorrenteDiv.style.transition = "opacity 0.5s";
+            setTimeout(() => {
+                outputDiv.style.opacity = 0;
+                parolaCorrenteDiv.style.opacity = 0;
+            }, 29500);
             setTimeout(() => {
                 outputDiv.textContent = "";
                 parolaCorrenteDiv.textContent = "";
+                outputDiv.style.opacity = 1;
+                parolaCorrenteDiv.style.opacity = 1;
             }, 30000);
             recognition.start();
         };
