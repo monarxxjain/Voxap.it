@@ -1457,3 +1457,6 @@ _::-webkit-full-page-media, _:future, :root .sidebar {
 .file{
     width: 100%;
 }
+#parolaCorrente{
+    margin-top: 10px;
+}

@@ -223,8 +223,9 @@ setTimeout(() => {
         let recognition = new (window.webkitSpeechRecognition || window.SpeechRecognition)();
         recognition.lang = "it-IT";
         recognition.interimResults = true;
-
+        let timeoutId;
         recognition.onresult = async (event) => {
+            clearTimeout(timeoutId); // Clear the previous timeout
             let transcript = "";
             for (let i = 0; i < event.results.length; i++) {
                 transcript += event.results[i][0].transcript + " ";
@@ -245,9 +246,31 @@ setTimeout(() => {
 
             outputDiv.textContent = `${fraseCorrente}`;
             socket.emit("send_message", fraseCorrente);
+            timeoutId = setTimeout(() => {
+                recognition.stop();
+                recognition.start();
+                translationData = "";
+                translation = "";
+                translationResponse = "";
+                parolaCorrenteDiv.textContent = "";
+                outputDiv.textContent = "";
+            }, 10000);
         };
 
         recognition.onend = () => {
+            let opacity = 0; 
+            outputDiv.style.transition = "opacity 0.5s";  // Set the transition duration
+            parolaCorrenteDiv.style.transition = "opacity 0.5s";
+            setTimeout(() => {
+                outputDiv.style.opacity = 0;
+                parolaCorrenteDiv.style.opacity = 0;
+            }, 29500);
+            setTimeout(() => {
+                outputDiv.textContent = "";
+                parolaCorrenteDiv.textContent = "";
+                outputDiv.style.opacity = 1;
+                parolaCorrenteDiv.style.opacity = 1;
+            }, 30000);
             recognition.start();
         };
 
