@@ -1103,6 +1103,7 @@ function audioFunction(ele) {
         ele.innerHTML = `<i class="fas fa-microphone-slash"></i>`;
         ele.style.backgroundColor = "#b12c2c";
         mymuteicon.style.visibility = "visible";
+        socket.emit("action", "mute");
     } else {
         for (let key in audioTrackSent) {
             audioTrackSent[key].enabled = true;
@@ -1279,43 +1280,46 @@ setTimeout(() => {
 
         recognition.onresult = async (event) => {
             clearTimeout(timeoutId); // Clear the previous timeout
+            if(audioAllowed){
 
-            let transcript = "";
-            for (let i = 0; i < event.results.length; i++) {
-                transcript += event.results[i][0].transcript + " ";
+                let transcript = "";
+                for (let i = 0; i < event.results.length; i++) {
+                    transcript += event.results[i][0].transcript + " ";
+                }
+                parolaCorrenteDiv.textContent = transcript;
+                
+                socket.emit("send_message", transcript);
+    
+                let selectedLanguage = languageSelect.value;
+                const translationResponse = await fetch(
+                    `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(
+                        transcript
+                    )}`
+                );
+                const translationData = await translationResponse.json();
+                const translation = translationData[0][0][0];
+    
+                fraseCorrente = translation;
+                isTranslating = true;
+    
+                outputDiv.textContent = `${fraseCorrente}`;
+    
+                // Set a new timeout to clear the captions div after 10 seconds
+    
+                timeoutId = setTimeout(() => {
+                    recognition.stop();
+                    recognition.start();
+                    translationData = "";
+                    translation = "";
+                    translationResponse = "";
+                    parolaCorrenteDiv.textContent = "";
+                    outputDiv.textContent = "";
+                }, 10000);
+    
+                let objDiv = document.getElementById("big-cont");
+                objDiv.scrollTop = objDiv.scrollHeight;
             }
-            parolaCorrenteDiv.textContent = transcript;
-            
-            socket.emit("send_message", transcript);
 
-            let selectedLanguage = languageSelect.value;
-            const translationResponse = await fetch(
-                `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${selectedLanguage}&dt=t&q=${encodeURIComponent(
-                    transcript
-                )}`
-            );
-            const translationData = await translationResponse.json();
-            const translation = translationData[0][0][0];
-
-            fraseCorrente = translation;
-            isTranslating = true;
-
-            outputDiv.textContent = `${fraseCorrente}`;
-
-            // Set a new timeout to clear the captions div after 10 seconds
-
-            timeoutId = setTimeout(() => {
-                recognition.stop();
-                recognition.start();
-                translationData = "";
-                translation = "";
-                translationResponse = "";
-                parolaCorrenteDiv.textContent = "";
-                outputDiv.textContent = "";
-            }, 10000);
-
-            let objDiv = document.getElementById("big-cont");
-            objDiv.scrollTop = objDiv.scrollHeight;
         };
 
         recognition.onend = () => {
