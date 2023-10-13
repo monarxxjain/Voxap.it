@@ -1147,8 +1147,10 @@ socket.on("answer_message", async ( msg, sid ) => {
         document.querySelector(`#${sid} .video-captions .custom-style-1`).textContent = msg;
         document.querySelector(`#${sid} .video-captions .custom-style-2`).textContent = translation;
         setInterval(() => {
-            let obDiv = document.getElementById("big-cont");
-            obDiv.scrollTop = obDiv.scrollHeight;
+            let obDiv = document.getElementsByClassName("video-cont-container");
+            for (var i = 0; i < obDiv.length; i++) {
+                obDiv[i].scrollTop = obDiv[i].scrollHeight;
+            }
             
         }, 100);
         setTimeout(() => {
